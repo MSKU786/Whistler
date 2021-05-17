@@ -1,0 +1,19 @@
+{
+  "name": "whistler",
+  "version": "1.0.0",
+  "description": "A social media app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSKU786/Whistler.git"
+  },
+  "author": "Manish Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MSKU786/Whistler/issues"
+  },
+  "homepage": "https://github.com/MSKU786/Whistler#readme"
+}
