@@ -1,9 +1,8 @@
-const http = require('http');
+const express = require('express')
+const app = express();
 const port = 8000;  
 
-const server = http.createServer();
-
-server.listen(port,function(err){
+app.listen(port,function(err){
     if(err){
         console.log(err);
         return;
