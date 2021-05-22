@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express();
-const port = 8000;  
+const port = 8800;  
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const usersRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
+const bodyParser = require("body-parser");
 dotenv.config();
 
 mongoose 
@@ -21,10 +22,9 @@ mongoose
 //MiddleWare
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("Common"));
-
+//app.use(express.bodyParser());
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 
