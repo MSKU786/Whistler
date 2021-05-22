@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const usersRoute = require("./routes/users")
+const authRoute = require("./routes/auth")
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true}, ()=>{
@@ -17,10 +18,10 @@ mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true}, ()=>{
 
 app.use(express.json());
 app.use(helmet());
-app.use(morgon("Common"));
+app.use(morgan("Common"));
 
 app.use('/api/users', usersRoute);
-
+app.use('/api/auth', authRoute);
 
 app.listen(port,function(err){
     if(err){
