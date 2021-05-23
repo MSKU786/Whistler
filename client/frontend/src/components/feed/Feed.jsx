@@ -1,5 +1,6 @@
 import React from 'react';
 import Share from '../share/Share'
+import Post from '../post/Post'
 import "./feed.css"
 
 function Feed(props) {
@@ -7,6 +8,7 @@ function Feed(props) {
         <div className = "feed">
             <div className="feedWrapper">
                 <Share />
+                <Post />
             </div>
         </div>
     );
