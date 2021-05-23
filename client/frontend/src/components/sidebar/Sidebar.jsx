@@ -39,9 +39,33 @@ function Sidebar(props) {
                         <span className="sidebarText">Courses</span>
                     </li>
                 </ul>
+                <button className="sidebarButton">Show More..</button>
+                <hr className = "sidebarHr"/>
+                <ul className="sidebarFriendList">
+                    <li className="sidebarFriend">
+                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
+                        <span className="sidebarName">John Cena</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
+                        <span className="sidebarName">John Cena</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
+                        <span className="sidebarName">John Cena</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
+                        <span className="sidebarName">John Cena</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
+                        <span className="sidebarName">John Cena</span>
+                    </li>
+                </ul>
             </div>
         </div>
-    );
+    )   
 }
 
 export default Sidebar;
