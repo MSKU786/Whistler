@@ -28,7 +28,7 @@ app.use(morgan("Common"));
 //app.use(express.bodyParser());
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
-
+app.use('/api/posts', postRoute);
 app.listen(port,function(err){
     if(err){
         console.log(err);
