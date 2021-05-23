@@ -1,26 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
-import { Router } from 'express';
-
+import Home from "./pages/home/home"
+import {Person} from "@material-ui/icons"
 function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path = "/">
-            <Home />
-        </Route>
-        <Route  path = "/">
-            <Home />
-        </Route>
-        <Route  path = "/">
-            <Home />
-        </Route>
-        <Route  path = "/">
-            <Home />
-        </Route>
-      </Switch>
-    </Router>
-  );
+  return  (<div>
+    <Home /> 
+    <Person />  
+    </div>)    ;
 }
 
 export default App;
