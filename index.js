@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const usersRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
+const postRoute = require("./routes/posts") 
 const bodyParser = require("body-parser");
 dotenv.config();
 
