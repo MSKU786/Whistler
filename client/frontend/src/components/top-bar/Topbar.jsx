@@ -2,14 +2,14 @@ import "./Topbar.css"
 import {Search, Person, Chat, Notifications} from '@material-ui/icons'
 function Topbar(props) {
     return (
-        <div>
-            <h3>TopBar</h3>
+        <div className="topbarContainer">
+            
             <div className="topbarLeft">
                 <span className="logo">wwe</span>
             </div>
             <div className="topbarCenter">
                 <div className="searchBar">
-                    <Search />
+                    <Search className = "searchIcon" />
                     <input placeholder="Search Here......." className="searchInput" />
                 </div>
             </div>
@@ -33,7 +33,7 @@ function Topbar(props) {
                         <span className="topbarIconBatch">1</span>
                     </div>
                 </div>
-                <img src="" alt="" className="topbarImage" />
+                <img src="" alt="" className="topbarImg" />
             </div>
         </div>
     );
