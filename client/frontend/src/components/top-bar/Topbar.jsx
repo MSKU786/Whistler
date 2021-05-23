@@ -33,7 +33,7 @@ function Topbar(props) {
                         <span className="topbarIconBatch">1</span>
                     </div>
                 </div>
-                <img src="" alt="" className="topbarImg" />
+                <img src="/assets/singer2.jpg" alt="DP" className="topbarImg" />
             </div>
         </div>
     );
