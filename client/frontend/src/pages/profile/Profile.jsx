@@ -12,12 +12,23 @@ function Profile(props) {
         <div className="profile">
             <Sidebar/>
             <div className="profileRight">
-                <div className="profileRightTro">
-
+                <div className="profileRightTop">
+                    <div className="profileCover">
+                        <img src="./assets/post/3.jpg" 
+                            alt="Cover Photo" 
+                            className="profileCoverImg" />
+                        <img src="./assets/person/3.jpg" 
+                            alt="User Photo" 
+                            className="profileUserImg" />
+                    </div>
+                    <div className="profileInfo">
+                        <h4 className="profileName">Luffy</h4>
+                        <p className="profileDesc">I am Monkey D Luffy and I am going to be pirate key some day </p>
+                    </div>
                 </div>
                 <div className="profileRightBottom">
-                    <Feed/>
-                    <Rightbar/>
+                    <Feed />
+                    <Rightbar profile/>
                 </div>
                 
             </div>
