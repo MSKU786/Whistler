@@ -1,8 +1,10 @@
 import React from 'react';
 import "./login.css"
-function Login(props) {
+
+function Register(props) {
     return (
-        <div className = "login">
+        <div>
+            <div className = "login">
             <div className="loginWrapper">
                 <div className="loginLeft">
                     <h3 className="loginLogo">Whistler</h3>
@@ -11,19 +13,22 @@ function Login(props) {
                     </span>
                 </div>
                 <div className="loginRight">
-                    <div className="loginBox">
+                    <div className="signupBox">
+                        <input placeholder="User name" className="loginInput" />
                         <input placeholder="Email" className="loginInput" />
                         <input placeholder="Password" className="loginInput" />
-                        <button className="loginButton">Log In</button>
+                        <input placeholder=" Confirm Password" className="loginInput" />
+                        <button className="loginButton">Sign Up</button>
                         <span className="loginForgot">Forgot Password??</span>
-                        <button className="loginSignUp">Create a new Account</button>
+                        <button className="loginSignUp">Log Into account </button>
                     </div>
                 </div>
 
             </div>
             
         </div>
+        </div>
     );
 }
 
-export default Login;
+export default Register;
