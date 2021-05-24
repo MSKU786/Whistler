@@ -1,14 +1,14 @@
 .sidebar{
     flex: 3;
-    height: calc(100vh-50px);
-    
+    height: calc(100vh-50px); 
+    overflow-y: scroll;
 }
 
 
 
 .sidebarWrapper{
     padding: 20px;
-    overflow-y: scroll;
+   
 }
 
 ::-webkit-scrollbar{

@@ -1,4 +1,4 @@
-import { MoreVert } from '@material-ui/icons';
+import { Favorite, FavoriteBorder, MoreVert, ThumbUpAlt } from '@material-ui/icons';
 import React from 'react';
 import "./post.css"
 
@@ -22,10 +22,20 @@ function Post(props) {
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
-
+                        <button className="likeIcon">
+                            <ThumbUpAlt />
+                        </button>
+                        <button className="likeIcon">
+                            <FavoriteBorder />
+                        </button>
+                        <span className="postLikeCounter">
+                            32 people like it
+                        </span>
                     </div>
                     <div className="postBottomRight">
-                        
+                        <span className="postCommentText">
+                            9 Comments
+                        </span>
                     </div>
                 </div>
             </div>
