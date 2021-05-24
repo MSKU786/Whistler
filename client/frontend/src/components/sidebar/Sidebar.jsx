@@ -1,6 +1,8 @@
 import React from 'react';
 import {RssFeed} from "@material-ui/icons"
 import "./sidebar.css"
+import CloseFriend from "./CloseFriend"
+import {Users} from '../../dummy.js'
 function Sidebar(props) {
     return (
         <div className = "sidebar">
@@ -42,26 +44,9 @@ function Sidebar(props) {
                 <button className="sidebarButton">Show More..</button>
                 <hr className = "sidebarHr"/>
                 <ul className="sidebarFriendList">
-                    <li className="sidebarFriend">
-                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
-                        <span className="sidebarName">John Cena</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
-                        <span className="sidebarName">John Cena</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
-                        <span className="sidebarName">John Cena</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
-                        <span className="sidebarName">John Cena</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img className="sidebarImg" src="./assets/Zayn.jpg" alt="friends photo"/>
-                        <span className="sidebarName">John Cena</span>
-                    </li>
+                    {Users.map((u) => (
+                        <CloseFriend key={u.id} user={u}/>
+                    ))}
                 </ul>
             </div>
         </div>

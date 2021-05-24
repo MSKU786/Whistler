@@ -12,7 +12,6 @@ function Feed(props) {
                     <Post key={p.id} post={p} />
                 ))}
                 
-               
             </div>
         </div>
     );
