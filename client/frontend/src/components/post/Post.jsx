@@ -7,6 +7,7 @@ import { useState } from "react";
 function Post({post}) {
     const [ like , setLike] = useState(post.like);
     const [ isliked, setIsliked ] = useState(false);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
     const likeHandler = () => {
         setLike(isliked ? like-1 : like+1)
@@ -27,7 +28,7 @@ function Post({post}) {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img src={post.photo} alt="post1" className="postImg" />
+                    <img src={PF+post.photo} alt="post1" className="postImg" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">

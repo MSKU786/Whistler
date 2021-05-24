@@ -85,9 +85,10 @@ router.get("/:id", async (req, res) =>{
 
 
 //Get time line posts
-router.get("/timeline/all", async (req, res) =>{
+router.get("/timeline/:userID", async (req, res) =>{
     try{
-        const currentUser = await User.findById(req.body.userID);
+        
+        const currentUser = await User.findById(req.params.userID);
         console.log(currentUser);
         const userPosts = await Post.find({userID: currentUser._id});
 
@@ -96,7 +97,7 @@ router.get("/timeline/all", async (req, res) =>{
                 return Post.find({userID: friendId})
             })
         )
-        res.json(userPosts.concat(...friendPosts));
+        res.status(200).json(userPosts.concat(...friendPosts));
     }
     catch(err){
         res.status(500).json(err);

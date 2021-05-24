@@ -6,7 +6,7 @@ function Topbar(props) {
         <div className="topbarContainer">
             
             <div className="topbarLeft">
-                <Link to="/" style={{textDecoration="none"}}>
+                <Link to="/" >
                     <span className="logo">wwe</span>
                 </Link>
             </div>

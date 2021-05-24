@@ -4,7 +4,7 @@ import Post from '../post/Post'
 import "./feed.css"
 import { Posts } from "../../dummy"
 import axios from "axios";
-
+import {useState} from "react";
 
 function Feed(props) {
     const [posts, setPosts] = useState([]);
@@ -12,7 +12,7 @@ function Feed(props) {
 
     useEffect(()=>{
         const fetchPosts  = async () => {
-            const res = await axios.get("posts/timeline/60a90b664d9b4f4f70a18ada")
+            const res = await axios.get("posts/timeline/60a90c6f08fc1051f84b1014")
             console.log(res);
         }
         fetchPosts();

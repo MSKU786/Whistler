@@ -4,6 +4,7 @@ import Online from "./Online"
 import {Users} from '../../dummy.js'
 
 function Rightbar({profile}) {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
     const RightbarHome = () => {
         return (
             <>
