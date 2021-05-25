@@ -3,7 +3,7 @@ import "./rightbar.css"
 import Online from "./Online"
 import {Users} from '../../dummy.js'
 
-function Rightbar({profile}) {
+function Rightbar({user}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
     const RightbarHome = () => {
         return (
@@ -31,15 +31,15 @@ function Rightbar({profile}) {
                 <div className="rightbarInfo">
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">City : </span>
-                        <span className="rightbarInfoValue">Newyork </span>
+                        <span className="rightbarInfoValue">{user.city || "Newyork"} </span>
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">From : </span>
-                        <span className="rightbarInfoValue">Madrid </span>
+                        <span className="rightbarInfoValue">{user.from || "Madrid"} </span>
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">RelationShip: </span>
-                        <span className="rightbarInfoValue">Single </span>
+                        <span className="rightbarInfoValue">{user.relationsip || "Single"} </span>
                     </div>
                 </div>
                 <h4 className="rightbarTitle">User Friends</h4>
@@ -76,7 +76,7 @@ function Rightbar({profile}) {
     return (
         <div className="rightbar">
             <div className="rightbarWrapper">
-                {profile ? <RightbarProfile/> : <RightbarHome/> }
+                {user ? <RightbarProfile/> : <RightbarHome/> }
             </div>
         </div>
     );

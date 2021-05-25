@@ -1,26 +1,28 @@
-import {  FavoriteBorder, Link, MoreVert, ThumbUpAlt } from '@material-ui/icons';
+import {  FavoriteBorder,  MoreVert, ThumbUpAlt } from '@material-ui/icons';
 import React, { useEffect } from 'react';
 import "./post.css"
 import { Users } from "../../dummy"
 import {  useState } from "react";
 import { format } from "timeago.js"
 import axios from 'axios';
+import {Link} from "react-router-dom"
 
 function Post({post}) {
     const [ like , setLike] = useState(post.likes.length);
     const [ isliked, setIsliked ] = useState(false);
-    const [ user, setUser ] = useState(false);
+    const [ user, setUser ] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`users/${post.userID}`)
+            const res = await axios.get(`/users/${post.userID}`)
             console.log(res);
             setUser(res.data);
         }
-        fetchUser();
-        
+        fetchUser();    
     },[post.userID]);
+
+
     const likeHandler = () => {
         setLike(isliked ? like-1 : like+1)
         setIsliked(!isliked ? true : false )
@@ -30,7 +32,7 @@ function Post({post}) {
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <Link to = {`profile/${user.username}`}>
+                        <Link to = {`/profile/${user.username}`}>
                             <img src={user.profilePicture || PF+"Zayn.jpg"} alt="DP" className="postProfileImg" />
                         </Link>
                         <span className="postUserName">{user.username}</span>
