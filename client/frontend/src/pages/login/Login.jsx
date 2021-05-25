@@ -1,16 +1,19 @@
 import React, { useContext, useRef } from 'react';
 import "./login.css"
 import {loginCall} from "../../apiCalls"
-import {CircularProgress} from "@material-ui/icons"
+import {CircularProgress} from "@material-ui/core"
 import { AuthContext } from '../../context/AuthContext';
 function Login(props) {
+    const email= useRef();
+    const password = useRef();
+    const {user, isFetching, error, dispatch} = useContext(AuthContext)
     const handleClick = (e) => {
-        const email= useRef();
-        const password = useRef();
-        const {user, isFetching, error, dispatch} = useContext(AuthContext)
+        
+         
         e.preventDefault();
         console.log("clicked");
         loginCall({email:email.current.value ,password: password.current.value}, dispatch );
+        console.log(user);
     }
     return (
         <div className = "login">
@@ -35,11 +38,13 @@ function Login(props) {
                             minLength="6"
                             required
                             ref={password} />
-                        <button className="loginButton" type="submit">
-                            {isFetching ? <CircularProgress color="white" size="20px"/> : "Log In" }
+                        <button className="loginButton" type="submit" disabled={isFetching}>
+                             {isFetching ? <CircularProgress color="white" size="20px"/> : "Log In" }                         
                         </button>
                         <span className="loginForgot">Forgot Password??</span>
-                        <button className="loginSignUp">Create a new Account</button>
+                        <button className="loginSignUp" disabled={isFetching}>
+                            {isFetching ? <CircularProgress color="white" size="20px"/> : "Create A new account" }                         
+                        </button>
                     </form>
                 </div>
 
