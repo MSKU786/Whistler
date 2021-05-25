@@ -1,21 +1,26 @@
 import {  FavoriteBorder,  MoreVert, ThumbUpAlt } from '@material-ui/icons';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import "./post.css"
 import { Users } from "../../dummy"
 import {  useState } from "react";
 import { format } from "timeago.js"
 import axios from 'axios';
 import {Link} from "react-router-dom"
+import { AuthContext } from '../../context/AuthContext';
 
 function Post({post}) {
     const [ like , setLike] = useState(post.likes.length);
     const [ isliked, setIsliked ] = useState(false);
     const [ user, setUser ] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
+    const {user: currentUser}  = useContext(AuthContext);
 
+    useEffect(() => {
+        setIsliked(post.likes.includes(currentUser._id))
+    },[currentUser._id, post.likes])
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`/users/${post.userID}`)
+            const res = await axios.get(`/users/${post.userID}`.{userID: currentUser._id});
             console.log(res);
             setUser(res.data);
         }
@@ -24,8 +29,15 @@ function Post({post}) {
 
 
     const likeHandler = () => {
-        setLike(isliked ? like-1 : like+1)
-        setIsliked(!isliked ? true : false )
+        // setLike(isliked ? like-1 : like+1)
+        // setIsliked(!isliked ? true : false )
+        try {
+            const likes = axios.get(`/posts/like/${post._id}`)
+            setLike(isliked ? like-1 : like+1)
+            setIsliked(!isliked );
+        } catch (err) {
+            
+        }
     }
     return (
         <div className = "post">
@@ -44,7 +56,11 @@ function Post({post}) {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img src={PF+post.photo} alt="post1" className="postImg" />
+                    <img 
+                        src={user.profilePicture ? PF+ user.profilePicture : PF+"Zayn.jpg" } 
+                        alt="post1" 
+                        className="postImg" 
+                    />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
