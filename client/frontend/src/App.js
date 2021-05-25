@@ -2,6 +2,7 @@ import Home from "./pages/home/Home"
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Profile from "./pages/profile/Profile"
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,7 +28,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
-  )    ;
+  )   ;
 }
 
 export default App;

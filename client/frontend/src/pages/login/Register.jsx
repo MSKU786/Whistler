@@ -16,8 +16,8 @@ function Register(props) {
                     <div className="signupBox">
                         <input placeholder="User name" className="loginInput" />
                         <input placeholder="Email" className="loginInput" />
-                        <input placeholder="Password" className="loginInput" />
-                        <input placeholder=" Confirm Password" className="loginInput" />
+                        <input placeholder="Password" type="password" className="loginInput" />
+                        <input placeholder=" Confirm Password" type="password" className="loginInput" />
                         <button className="loginButton">Sign Up</button>
                         <span className="loginForgot">Forgot Password??</span>
                         <button className="loginSignUp">Log Into account </button>
