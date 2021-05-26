@@ -1,21 +1,54 @@
 import { EmojiEmotions, Label, PermMedia, Room } from '@material-ui/icons';
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useRef, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import "./share.css"
 function Share(props) {
+    const {user} = useContext(AuthContext);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const desc = useRef();
+    const [file, setFile] = useState(null);
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        const newPost = {
+            userID: user._id,
+            desc: desc.current.value,
+        }
+
+        try {
+            await axios.post("/posts", newPost)
+        } catch (err) {
+            
+        }
+
+    }
     return (
         <div className= "share">
             <div className="shareWrapper">
                 <div className="shareTop"> 
-                    <img className = "shareProfileImg" src="./assets/singer2.jpg" alt = "singer1"/>
-                    <input placeholder="What's in your mind?" className="shareInput" />
+                    <img 
+                        className = "shareProfileImg" 
+                        src={user.profilePicture ? PF+ user.profilePicture : PF+"Zayn.jpg" } 
+                        alt = "singer1"
+                    />
+                    <input 
+                        placeholder={"What's in your mind "+user.username+"?"} 
+                        className="shareInput"
+                    />
                 </div>
                 <hr className= "shareHr" />
-                <div className="shareBottom">
+                <form className="shareBottom" onSubmit={submitHandler}>
                     <div className="shareOptions">
-                        <div className="shareOption">
+                        <label htmlFor="file" className="shareOption">
                             <PermMedia className = "shareIcon"  />
                             <span className = "shareOptionText">Photo or video </span>
-                        </div>
+                            <input 
+                                style={{display:"none"}}
+                                type= "file" id = "file" 
+                                accept=".png, .jpeg, .jpg" 
+                                onChange= {(e)=>setFile(e.target.files[0])}
+                            />
+                        </label>
                         <div className="shareOption">
                             <Label className = "shareIcon"  />
                             <span className = "shareOptionText">Tag </span>
@@ -29,8 +62,8 @@ function Share(props) {
                             <span className = "shareOptionText">React</span>
                         </div>
                      </div>
-                     <button className="shareButton">Share</button>
-                </div>
+                     <button className="shareButton" type="submit">Share</button>
+                </form>
             </div>
         </div>
     );

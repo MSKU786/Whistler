@@ -9,6 +9,9 @@ const usersRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts") 
 const bodyParser = require("body-parser");
+const multer = require("multer");
+const path = require("path");
+
 dotenv.config();
 
 mongoose 
@@ -18,6 +21,9 @@ mongoose
         useCreateIndex: true,   })   
  .then(() => console.log("Database connected!"))
  .catch(err => console.log(err));
+
+app.use("/images", express.static(path.join(__dirname, "public/images")))
+
 //Use express router
 //app.use('/', require())
 //MiddleWare
@@ -26,6 +32,23 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("Common"));
 //app.use(express.bodyParser());
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "public/images");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname+Date.now());
+    }
+})
+const upload = multer({storage });
+app.post('/api/upload', upload.single('file'), (req, res) => {
+    try {
+        return res.status(200).json("file uploaded successfully")
+    } catch (err) {
+        
+    }
+})
+
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);

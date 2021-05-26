@@ -20,7 +20,7 @@ function Post({post}) {
     },[currentUser._id, post.likes])
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`/users/${post.userID}`.{userID: currentUser._id});
+            const res = await axios.get(`/users/${post.userID}`,{userID: currentUser._id});
             console.log(res);
             setUser(res.data);
         }
