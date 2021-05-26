@@ -4,23 +4,24 @@ import Online from "./Online"
 import {Users} from '../../dummy.js'
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import { Add } from '@material-ui/icons';
 
 function Rightbar({user}) {
-    const {user: currentU} = useContext(AuthContext);
+    const {user: currentUser} = useContext(AuthContext);
     const[friends, setFriends] = useState([]);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
 
     useEffect(()=>{
         const fetchFriends = async () => {
             try {
-                const res = await axios.get("/users/friends/"+user._id);
+                const res = await axios.get("/users/friends/"+currentUser._id);
                 setFriends(res.data);
             } catch (err) {
                 console.log(err );
             }
         }
         fetchFriends();
-    },[user._id]);
+    },[currentUser._id]);
     
     const RightbarHome = () => {
         return (
@@ -44,6 +45,11 @@ function Rightbar({user}) {
     const RightbarProfile = () => {
         return (
             <>
+                {user.username !== currentUser.name && (
+                    <button className="rightBarFollowButton">
+                        Follow <Add />
+                    </button>
+                )}
                 <h4 className="rightbarTitle">User Information</h4>
                 <div className="rightbarInfo">
                     <div className="rightbarInfoItem">
