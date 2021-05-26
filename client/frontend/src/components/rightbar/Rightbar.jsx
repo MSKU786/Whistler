@@ -10,19 +10,34 @@ function Rightbar({user}) {
     const {user: currentUser} = useContext(AuthContext);
     const[friends, setFriends] = useState([]);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
+    const [followed, setFollowed] = useState(false);
 
+    useEffect(()=>{
+        setFollowed(currentUser.followings.includes(user?.id))
+    },[currentUser, user?.id])
     useEffect(()=>{
         const fetchFriends = async () => {
             try {
-                const res = await axios.get("/users/friends/"+currentUser._id);
+                const res = await axios.get("/users/friends/"+user._id);
                 setFriends(res.data);
             } catch (err) {
                 console.log(err );
             }
         }
         fetchFriends();
-    },[currentUser._id]);
+    },[user]);
     
+    const handleFollow = () => {
+        try {
+            if(followed) 
+                axios.put("/users/"+user._id+"/follow",{userID: currentUser._id})
+            else
+                axios.put("/users/"+user._id+"/unfollow",{userID: currentUser._id})
+        } catch (err) {
+            console.log(err);
+        }
+        setFollowed(!followed)
+    }
     const RightbarHome = () => {
         return (
             <>
@@ -46,7 +61,7 @@ function Rightbar({user}) {
         return (
             <>
                 {user.username !== currentUser.name && (
-                    <button className="rightBarFollowButton">
+                    <button className="rightBarFollowButton" onClick={handleFollow}>
                         Follow <Add />
                     </button>
                 )}
