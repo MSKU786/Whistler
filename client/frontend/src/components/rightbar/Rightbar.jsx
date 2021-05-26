@@ -13,8 +13,10 @@ function Rightbar({user}) {
     const [followed, setFollowed] = useState(false);
 
     useEffect(()=>{
-        setFollowed(currentUser.followings.includes(user?.id))
+        if(currentUser.following)
+            setFollowed(currentUser.following.includes(user?.id))
     },[currentUser, user?.id])
+
     useEffect(()=>{
         const fetchFriends = async () => {
             try {

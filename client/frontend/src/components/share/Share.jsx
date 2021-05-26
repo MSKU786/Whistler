@@ -8,6 +8,7 @@ function Share(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const desc = useRef();
     const [file, setFile] = useState(null);
+
     const submitHandler = async (e) => {
         e.preventDefault();
         const newPost = {
@@ -16,21 +17,22 @@ function Share(props) {
         }
         if(file){
             const data = new FormData();
-            const filename = Date.now()+file.name;
-            data.append(file);
-            data.append("name", filename);
-            newPost.img = filename;  
+            const fileName = Date.now()+file.name;
+            
+            data.append("name", fileName);
+            data.append("file",file);
+            newPost.images = fileName;  
             try {
                 await axios.post("/upload", data);
-                window.location.reload();
             } catch (err) {
                 console.log(err);
             }
         }
         try {
-            await axios.post("/posts", newPost)
+            await axios.post("/posts", newPost).then(console.log("done"))
+           //window.location.reload();
         } catch (err) {
-            
+            console.log(err);
         }
 
     }
@@ -46,10 +48,11 @@ function Share(props) {
                     <input 
                         placeholder={"What's in your mind "+user.username+"?"} 
                         className="shareInput"
+                        ref = {desc}
                     />
                 </div>
                 <hr className= "shareHr" />
-                <form className="shareBottom" onSubmit={submitHandler}>
+                <form  method="post" enctype="multipart/form-data" className="shareBottom" onSubmit={submitHandler} >
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOption">
                             <PermMedia className = "shareIcon"  />
@@ -74,7 +77,7 @@ function Share(props) {
                             <span className = "shareOptionText">React</span>
                         </div>
                      </div>
-                     <button className="shareButton" type="submit">Share</button>
+                    <button className="shareButton" type="submit">Share</button>
                 </form>
             </div>
         </div>

@@ -1,7 +1,6 @@
 import {  FavoriteBorder,  MoreVert, ThumbUpAlt } from '@material-ui/icons';
 import React, { useContext, useEffect } from 'react';
 import "./post.css"
-import { Users } from "../../dummy"
 import {  useState } from "react";
 import { format } from "timeago.js"
 import axios from 'axios';
@@ -12,8 +11,10 @@ function Post({post}) {
     const [ like , setLike] = useState(post.likes.length);
     const [ isliked, setIsliked ] = useState(false);
     const [ user, setUser ] = useState({});
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user: currentUser}  = useContext(AuthContext);
+
+    {console.log(post.images)};
 
     useEffect(() => {
         setIsliked(post.likes.includes(currentUser._id))
@@ -45,7 +46,7 @@ function Post({post}) {
                 <div className="postTop">
                     <div className="postTopLeft">
                         <Link to = {`/profile/${user.username}`}>
-                            <img src={user.profilePicture || PF+"Zayn.jpg"} alt="DP" className="postProfileImg" />
+                            <img src={user.profilePicture || PF+"1.jpg"} alt="DP" className="postProfileImg" />
                         </Link>
                         <span className="postUserName">{user.username}</span>
                         <span className="postDate">{format(post.createdAt)}</span>
@@ -57,7 +58,8 @@ function Post({post}) {
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
                     <img 
-                        src={user.profilePicture ? PF+ user.profilePicture : PF+"Zayn.jpg" } 
+                        src={PF+post.images || PF+"1.jpg" } 
+
                         alt="post1" 
                         className="postImg" 
                     />
