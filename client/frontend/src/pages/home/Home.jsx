@@ -10,7 +10,6 @@ function home(props) {
             <Topbar/>
             <div className="homeContainer">
                 <Sidebar/>
-                
                 <Feed/>
                 <Rightbar/>
             </div>
