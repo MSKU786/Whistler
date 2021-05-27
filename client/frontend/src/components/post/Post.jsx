@@ -14,14 +14,14 @@ function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user: currentUser}  = useContext(AuthContext);
 
-    {console.log(post.images)};
-
     useEffect(() => {
         setIsliked(post.likes.includes(currentUser._id))
     },[currentUser._id, post.likes])
+
+    
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`/users/${post.userID}`,{userID: currentUser._id});
+            const res = await axios.get(`/users?userID=${post.userID}`);
             console.log(res);
             setUser(res.data);
         }
@@ -33,11 +33,11 @@ function Post({post}) {
         // setLike(isliked ? like-1 : like+1)
         // setIsliked(!isliked ? true : false )
         try {
-            const likes = axios.get(`/posts/like/${post._id}`)
+            const likes = axios.put("/posts/like/"+post._id,{userID: currentUser._id})
             setLike(isliked ? like-1 : like+1)
             setIsliked(!isliked );
         } catch (err) {
-            
+            console.log(err);
         }
     }
     return (

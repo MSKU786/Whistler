@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import "./rightbar.css"
 import Online from "./Online"
-import {Users} from '../../dummy.js'
+import {Link} from "react-router-dom"
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { Add } from '@material-ui/icons';
 
+
 function Rightbar({user}) {
+    const[users, setUsers] = useState([])
     const {user: currentUser} = useContext(AuthContext);
     const[friends, setFriends] = useState([]);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
@@ -17,17 +19,27 @@ function Rightbar({user}) {
             setFollowed(currentUser.following.includes(user?.id))
     },[currentUser, user?.id])
 
+    //For users
+    useEffect(()=> {
+        const fetchUsers = async () => {
+            const res = await axios.get("/users/all/User");
+            setUsers(res.data);
+        }
+        fetchUsers();
+    },[])
+
+    //For friends
     useEffect(()=>{
         const fetchFriends = async () => {
             try {
-                const res = await axios.get("/users/friends/"+user._id);
-                setFriends(res.data);
+                const friendList = await axios.get("/users/friends/"+currentUser._id);
+                setFriends(friendList.data);
             } catch (err) {
                 console.log(err );
             }
         }
         fetchFriends();
-    },[user]);
+    },[currentUser._id]);
     
     const handleFollow = () => {
         try {
@@ -44,14 +56,14 @@ function Rightbar({user}) {
         return (
             <>
                 <div className="birthdayContainer">
-                    <img src="./assets/birthday.jpg" alt="birthday" className="birthdayImg" />
+                    <img src={PF+"birthday.jpg"} alt="birthday" className="birthdayImg" />
                     <span className="birthdayText">
                         <b>Batisata </b> and <b>2 others poeple</b> have birthday today
                     </span>
                 </div>
                 <h4 className="rightbarTitle">Online Friends</h4>
                 <ul className="rightbarFriendList">
-                    {Users.map((u)=> (
+                    {users.map((u)=> (
                          <Online key={u.id} user={u}/>
                     ))}
                 </ul>
@@ -64,7 +76,8 @@ function Rightbar({user}) {
             <>
                 {user.username !== currentUser.name && (
                     <button className="rightBarFollowButton" onClick={handleFollow}>
-                        Follow <Add />
+                        {followed ? "Unfollow" : "Follow"}
+                        {followed ? <Remove /> : <Add />}
                     </button>
                 )}
                 <h4 className="rightbarTitle">User Information</h4>
@@ -84,18 +97,20 @@ function Rightbar({user}) {
                 </div>
                 <h4 className="rightbarTitle">User Friends</h4>
                 <div className="rightbarFollowings">
-                    {friends.map((friend) => {
-                        <div className="rightbarFollowing">
-                            <img 
-                                src="assets/person/1.jpg" 
-                                alt="" 
-                                className="rightbarFollowingImg"
-                             />
-                        <span className="rightbarFollowingName">{friend.username}</span>
-                    </div>
-                    })}
+                    {friends.map((friend) => (
                         
-           
+                        <Link to={"/profile/"+friend.username} style={{textDecoration:"none"}}>
+                            {console.log(friend.username)}
+                            <div className="rightbarFollowing">
+                                <img 
+                                    src={PF+"profile.jpg"} 
+                                    alt="friend" 
+                                    className="rightbarFollowingImg"
+                                />
+                                <span className="rightbarFollowingName">{friend.username}</span>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </>
             

@@ -42,7 +42,7 @@ function Share(props) {
                 <div className="shareTop"> 
                     <img 
                         className = "shareProfileImg" 
-                        src={user.profilePicture ? PF+ user.profilePicture : PF+"Zayn.jpg" } 
+                        src={user.profilePicture ? PF+ user.profilePicture : PF+"unknown.jpg" } 
                         alt = "singer1"
                     />
                     <input 

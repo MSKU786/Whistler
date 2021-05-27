@@ -109,10 +109,17 @@
 .rightbarFollowing{
     display: flex;
     flex-direction: column;
+
 }
 .rightbarFollowingImg{
     width: 100px;
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.rightBarFollowingName{
+    font-size: 30px;
+    font-weight: bold;
+    color: red
 }

@@ -13,6 +13,7 @@ function Profile(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
     const [ user, setUser ] = useState({});
     const username = useParams().username;
+    
     useEffect(()=>{
         const fetchUser  = async () => {
             const res = await axios.get(`/users?username=${username}`)
@@ -30,14 +31,15 @@ function Profile(props) {
             <div className="profileRight">
                 <div className="profileRightTop">
                     <div className="profileCover">
-                        <img src={user.coverPicture || PF+"/singer2.jpg"} 
+                        <img src={user.coverPicture? PF+user.coverPicture : PF+"cover.jpg"} 
                             alt="Cover Photo" 
                             className="profileCoverImg" />
-                        <img src=  {user.profilePicture || PF+"Zayn.jpg"} 
+                        <img src=  {user.profilePicture ? PF+user.profilePicture  : PF+"profile.jpg"} 
                             alt="User Photo" 
                             className="profileUserImg" />
                     </div>
                     <div className="profileInfo">
+                        {console.log(user)}
                         <h4 className="profileName">{user.username}</h4>
                         <p className="profileDesc">{user.desc}</p>
                     </div>

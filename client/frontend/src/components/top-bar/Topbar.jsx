@@ -41,7 +41,7 @@ function Topbar(props) {
                     </div>
                 </div>
                 <Link to={`/profile/${user.username}`}>
-                <img src={user.profilePicture ?PF+ user.profilePicture: PF+"Zayn.jpg" } alt="DP" className="topbarImg" />
+                <img src={user.profilePicture ?PF+ user.profilePicture: PF+"unknown.jpg" } alt="DP" className="topbarImg" />
                 </Link>
             </div>
         </div>
