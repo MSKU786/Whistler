@@ -8,7 +8,7 @@ router.post('/', async (req, res) =>{
     const newPost = new Post(req.body);
     try{
         const savePost = await newPost.save();
-        console.log(savePost);
+        //console.log(savePost);
         res.status(200).json(savePost);
     }catch(err){
         res.status(500).json(err);
@@ -94,7 +94,7 @@ router.get("/timeline/:userID", async (req, res) =>{
     try{
         
         const currentUser = await User.findById(req.params.userID);
-        console.log(currentUser);
+        //console.log(currentUser);
         const userPosts = await Post.find({userID: currentUser._id});
 
         const friendPosts = await Promise.all(

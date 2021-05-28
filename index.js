@@ -32,15 +32,22 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("Common"));
 //app.use(express.bodyParser());
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+        console.log("*********");
+        console.log(req)
+        console.log("*********************");
         cb(null, "public/images");
     },
     filename: (req, file, cb) => {
+        console.log("****************************");
+        console.log(  )
+        console.log("****************************");
         cb(null, req.body.name);
     }
 })
-const upload = multer({storage });
+const upload = multer({storage:storage });
 app.post('/api/upload', upload.single('file'), (req, res) => {
     try {
         return res.status(200).json("file uploaded successfully")
@@ -48,6 +55,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
         
     }
 })
+
 
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);

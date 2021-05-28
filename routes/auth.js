@@ -8,8 +8,8 @@ const bcrypt = require('bcrypt')
 
 router.post('/register',  async (req, res) => {
 
-    console.log(JSON.stringify(req.body));
-    console.log(req.body);
+    //console.log(JSON.stringify(req.body));
+    //console.log(req.body);
     const newUser = new User({
         username: req.body.username,
         email: req.body.email,
@@ -32,7 +32,7 @@ router.post('/login',  async (req, res) => {
     //     password: req.body.password,
     // });
     try{
-        console.log(req.body);
+        //console.log(req.body);
         const user = await User.findOne({email: req.body.email});
         !user && res.status(404).json("User not found");
         
