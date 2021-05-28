@@ -1,7 +1,8 @@
 import React from 'react';
-import "./conversation.css" 
+import "./conversation.css"
+import {format} from "timeago.js" 
 
-function Message({own }) {
+function Message({message, own }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
     return (
         <div className={own ? "message own" : "message"} > 
@@ -11,10 +12,10 @@ function Message({own }) {
                     alt="" 
                     className="messageImg" 
                 />
-                <p className="messageText">hello this is a message</p>
+                <p className="messageText">{message.text}</p>
             </div>
             <div className="messageBottom">
-                1 hour ago  
+                {format(message.createdAt)}
             </div>
         </div>
     );
