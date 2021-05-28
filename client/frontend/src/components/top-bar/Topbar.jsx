@@ -32,7 +32,10 @@ function Topbar(props) {
                         <span className="topbarIconBatch">1</span>
                     </div>
                     <div className="topbarIconItem">
-                        <Chat  />
+                        <Link to = "/messenger">
+                            <Chat  />
+                        </Link>
+                        
                         <span className="topbarIconBatch">1</span>
                     </div>
                     <div className="topbarIconItem">

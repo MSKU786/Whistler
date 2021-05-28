@@ -17,13 +17,48 @@
 .chatBox{
     flex: 5.5;
 }
-
-.chatOnline{
-    flex: 3;
-}
-
 .chatMenuContainer,.chatBoxContainer, .chatOnlineContainer{
     padding: 10px;
     height: 100%;
 
 }
+
+.chatBoxContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center ;
+}
+
+.chatBoxTop{
+    height: 500px;
+    padding-right: 10px;
+    overflow-y: scroll;
+}
+.chatBoxBottom{
+    margin-top: 5px;
+    display: flex ;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.chatInput{
+    width: 75%;
+    height: 40px;
+    padding: 10px
+}
+
+.sendChatButton{
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+    border: none;
+    background-color: rgb(163, 122, 240);
+    color: white;
+    cursor: pointer;
+} 
+  
+.chatOnline{
+    flex: 3;
+}
+

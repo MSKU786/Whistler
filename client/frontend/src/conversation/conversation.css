@@ -21,3 +21,42 @@
 .conversationName{
     font-weight: bold;
 }
+
+.message{
+    display: flex;
+    flex-direction: column;
+}
+
+.messageTop{
+    display: flex;
+    border-radius: 5px;
+}
+.messageImg{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50% ;
+    margin-right: 8px;
+}
+
+.messageText{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: gray;
+    color: white;
+    max-width: 75%;
+}
+
+.messageBottom{
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.message.own{
+    align-items: flex-end;
+}
+
+.message.own .messageText{
+    background-color: peachpuff;
+    color: darkblue
+}

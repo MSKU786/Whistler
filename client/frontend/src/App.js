@@ -1,7 +1,9 @@
 import Home from "./pages/home/Home"
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
-import Profile from "./pages/profile/Profile"
+import Profile from "./pages/profile/Profile";
+import Messenger from "./pages/messenger/Messenger";
+
 import { useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import {
