@@ -3,7 +3,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Profile from "./pages/profile/Profile";
 import Messenger from "./pages/messenger/Messenger";
-
+import Setting from "./pages/setting/Setting"
 import { useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import {
@@ -34,6 +34,9 @@ function App() {
         </Route>
         <Route path="/profile/:username">
             <Profile />
+        </Route>
+        <Route path="/Setting">
+            <Setting />
         </Route>
       </Switch>
     </Router>

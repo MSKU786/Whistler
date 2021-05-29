@@ -1,22 +1,56 @@
-import { AirportShuttleTwoTone, Send } from '@material-ui/icons';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import {  Send } from '@material-ui/icons';
+import React, { createRef, useContext, useEffect, useRef, useState } from 'react';
 import ChatOnline from '../../components/chatOnline/ChatOnline';
 import Topbar from '../../components/top-bar/Topbar';
 import { AuthContext } from '../../context/AuthContext';
 import Conversation from '../../conversation/Conversation'
 import Message from '../../conversation/Message';
 import axios from "axios"
+import {io} from "socket.io-client"
 import "./messenger.css"
 
 
 function Messenger(props) {
     const [conversations , setConversations] = useState([])
     const [currentChat , setCurrentChat] = useState(null)
-    const [messages , setMessages] = useState([])        
-    const [newMessages , setNewMessages] = useState("")                     
+    const [messages , setMessages] = useState([]);     
+    const [newMessages , setNewMessages] = useState("")
+    const [arrivalMessage , setArrivalMessage] = useState(null);  
+    const [onlineUsers , setOnlineUsers ] = useState(null);    
+    const socket = useRef();                 
     const {user} =  useContext(AuthContext);
-    const scrollRef = useRef();
 
+  
+
+    useEffect(()=> {
+        socket.current = io("ws://localhost:8990");
+        socket.current.on("getMessage", data => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            }) 
+        })
+    },[]);
+
+    //This use effect so we other can't see the messages
+    useEffect(()=> {
+        arrivalMessage 
+        && currentChat?.people.includes(arrivalMessage.sender) 
+        && setMessages(prev=>[...prev, arrivalMessage])
+    },[arrivalMessage, currentChat])
+
+
+    useEffect(()=> {
+        socket.current.emit("addUser", user._id);
+        socket.current.on("getUsers", (users) => {
+            console.log("is this correct");
+            setOnlineUsers(
+                user.following.filter(f=>users.some(u=>u.userId===f)));
+        });
+    }, [user]);
+
+ 
     useEffect(() => {
         const getConversation = async () => {
             try{
@@ -28,25 +62,11 @@ function Messenger(props) {
             }
         }
         getConversation();    
-    },[user._id])
+    },[user._id]);
 
-    useEffect(()=> {
-        const getMessages = async () => {
-            try {
-                const res = await axios.get("/messages/"+currentChat?._id); 
-                setMessages(res.data);
-                console.log("this is what i am looking for");
-                console.log(res.data);                
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getMessages();
-    },[currentChat])
-
-    useEffect(()=>{
-        scrollRef.current?|.scrollIntoView({behavior: "smooth"})
-    },[messages])
+    // useEffect(()=>{
+    //     scrollRef.current?.scrollIntoView({behavior: "smooth"})
+    // },[messages])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,9 +76,16 @@ function Messenger(props) {
             conversationId: currentChat._id
         }
 
+        const receiverId = currentChat.people.find(
+            (receiver) => receiver !== user._id);
+        //sending to socket io first
+        socket.current.emit("sendMessage", {
+            senderId: user._id,
+            receiverId,
+            text: newMessages,
+        })
         try {
             const res = await axios.post("/messages", message );
-            console.log(res);
             setMessages([...messages, res.data])
             setNewMessages("");
         } catch (err) {
@@ -66,6 +93,19 @@ function Messenger(props) {
         }
     }
 
+    useEffect(() => {
+        const gettingtheMessage = async () => {
+          try {
+            const res = await axios.get("/messages/" + currentChat?._id);
+            setMessages(res.data);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        gettingtheMessage();
+      }, [currentChat]);
+
+  
     return (
         <>
             <Topbar />
@@ -86,15 +126,14 @@ function Messenger(props) {
 
                 <div className="chatBox">
                     <div className="chatBoxContainer">
-                         {console.log(currentChat)}
                         { 
                         currentChat ?
                         <>
                             <div className="chatBoxTop">
                                 {messages.map( m =>(
-                                    <div ref="scrollRef">
+                                    
                                         <Message message={m} own={m.sender === user._id}/>
-                                    </div>
+                                  
                                     
                                 ))
                                 }
@@ -114,9 +153,15 @@ function Messenger(props) {
                     </div>
                         
                 </div>
+                { console.log("I think There is my anser")}
+                { console.log(onlineUsers)}
                 <div className="chatOnline">
-                    <div className="chatOnlineContainer">
-                        <ChatOnline />
+                    <div className="chatOnlineContainer" >
+                        <ChatOnline  
+                        onlineUsers={onlineUsers} 
+                        currentId = {user._id}
+                        setCurrentChat = {setCurrentChat}
+                        />
                     </div>
                 </div>            
             </div>
