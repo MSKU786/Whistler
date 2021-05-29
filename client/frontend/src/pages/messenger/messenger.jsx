@@ -13,8 +13,9 @@ function Messenger(props) {
     const [conversations , setConversations] = useState([])
     const [currentChat , setCurrentChat] = useState(null)
     const [messages , setMessages] = useState([])        
-    const [newMessages , setNewMessages] = useState([])                     
+    const [newMessages , setNewMessages] = useState("")                     
     const {user} =  useContext(AuthContext);
+    const scroll
 
     useEffect(() => {
         const getConversation = async () => {
@@ -46,14 +47,16 @@ function Messenger(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
-            sender: "user._id",
-            text: newMessage,
+            sender: user._id,
+            text: newMessages,
             conversationId: currentChat._id
         }
 
         try {
-            const res = await axios("/messages", message );
+            const res = await axios.post("/messages", message );
+            console.log(res);
             setMessages([...messages, res.data])
+            setNewMessages("");
         } catch (err) {
             console.log(err);
         }
@@ -95,9 +98,8 @@ function Messenger(props) {
                                     placeholder = "write something ...." 
                                     className="chatInput"
                                     onChange= {(e)=>setNewMessages(e.target.value)}
-                                    value = {newMessage}
-                                 >
-                                </textarea>
+                                    value = {newMessages}
+                                ></textarea>
                                 <button className="sendChatButton" onClick={handleSubmit}><Send/></button>
                             </div>
                         </> : <span className="noConversation">Open a conservation to start a chat.</span>
