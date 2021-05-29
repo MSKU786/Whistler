@@ -7,13 +7,13 @@ import Conversation from '../../conversation/Conversation'
 import Message from '../../conversation/Message';
 import axios from "axios"
 import "./messenger.css"
-import conversation from '../../conversation/Conversation';
 
 
 function Messenger(props) {
     const [conversations , setConversations] = useState([])
     const [currentChat , setCurrentChat] = useState(null)
-    const [messages , setMessages] = useState([])                          
+    const [messages , setMessages] = useState([])        
+    const [newMessages , setNewMessages] = useState([])                     
     const {user} =  useContext(AuthContext);
 
     useEffect(() => {
@@ -34,6 +34,7 @@ function Messenger(props) {
             try {
                 const res = await axios.get("/messages/"+currentChat?._id); 
                 setMessages(res.data);
+                console.log("this is what i am looking for");
                 console.log(res.data);                
             } catch (error) {
                 console.log(error);
@@ -41,6 +42,22 @@ function Messenger(props) {
         }
         getMessages();
     },[currentChat])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const message = {
+            sender: "user._id",
+            text: newMessage,
+            conversationId: currentChat._id
+        }
+
+        try {
+            const res = await axios("/messages", message );
+            setMessages([...messages, res.data])
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <>
@@ -74,8 +91,14 @@ function Messenger(props) {
                                 
                             </div>
                             <div className="chatBoxBottom">
-                                <textarea  placeholder = "write something ...." className="chatInput"></textarea>
-                                <button className="sendChatButton"><Send/></button>
+                                <textarea  
+                                    placeholder = "write something ...." 
+                                    className="chatInput"
+                                    onChange= {(e)=>setNewMessages(e.target.value)}
+                                    value = {newMessage}
+                                 >
+                                </textarea>
+                                <button className="sendChatButton" onClick={handleSubmit}><Send/></button>
                             </div>
                         </> : <span className="noConversation">Open a conservation to start a chat.</span>
                         }
