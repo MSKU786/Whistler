@@ -4,7 +4,7 @@ const io = require('socket.io')(8990, {
     }
 });
 
-let users = []
+let users = [];
 
 const addUser = (userId, socketId) => {
     !users.some((user) => user.userId === userId) &&
@@ -35,8 +35,8 @@ io.on("connection", (socket) => {
         io.to(user.socketId).emit("getMessage", {
             senderId,
             text,
-        })   
-    })
+        });
+    });
 
     //On disconnected remove user from user array
     socket.on("disconnect", () => {
