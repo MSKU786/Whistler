@@ -1,5 +1,5 @@
 import { AirportShuttleTwoTone, Send } from '@material-ui/icons';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ChatOnline from '../../components/chatOnline/ChatOnline';
 import Topbar from '../../components/top-bar/Topbar';
 import { AuthContext } from '../../context/AuthContext';
@@ -15,7 +15,7 @@ function Messenger(props) {
     const [messages , setMessages] = useState([])        
     const [newMessages , setNewMessages] = useState("")                     
     const {user} =  useContext(AuthContext);
-    const scroll
+    const scrollRef = useRef();
 
     useEffect(() => {
         const getConversation = async () => {
@@ -43,6 +43,10 @@ function Messenger(props) {
         }
         getMessages();
     },[currentChat])
+
+    useEffect(()=>{
+        scrollRef.current?|.scrollIntoView({behavior: "smooth"})
+    },[messages])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -88,7 +92,10 @@ function Messenger(props) {
                         <>
                             <div className="chatBoxTop">
                                 {messages.map( m =>(
-                                    <Message message={m} own={m.sender === user._id}/>
+                                    <div ref="scrollRef">
+                                        <Message message={m} own={m.sender === user._id}/>
+                                    </div>
+                                    
                                 ))
                                 }
                                 
