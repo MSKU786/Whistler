@@ -39,6 +39,12 @@ const AuthReducer = (state, action) => {
                     following: [...state.user.following, action.payload],
                 }
             }
+        case "LOG_OUT":
+            localStorage.setItem('local',"");
+            return{
+                ...state,
+                user:null
+            }
          default: 
                 return state;
             

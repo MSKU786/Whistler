@@ -13,6 +13,7 @@ const messageRoute = require("./routes/messages")
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
+const passport = require("passport")
 
 dotenv.config();
 
@@ -26,6 +27,10 @@ mongoose
 
 app.use("/images", express.static(path.join(__dirname, "public/images")))
 
+
+app.use(passport.initialize());
+//Passport config
+require("./passport")(passport);
 //Use express router
 //app.use('/', require())
 //MiddleWare
@@ -37,15 +42,9 @@ app.use(morgan("Common"));
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        console.log("*********");
-        console.log(req)
-        console.log("*********************");
         cb(null, "public/images");
     },
     filename: (req, file, cb) => {
-        console.log("****************************");
-        console.log(  )
-        console.log("****************************");
         cb(null, req.body.name);
     }
 })
@@ -59,7 +58,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 })
 
 
-app.use('/api/users', usersRoute);
+app.use('/api/users',usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/conversations', conversationRoute);

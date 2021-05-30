@@ -8,8 +8,6 @@ function Login(props) {
     const password = useRef();
     const {user, isFetching, error, dispatch} = useContext(AuthContext)
     const handleClick = (e) => {
-        
-         
         e.preventDefault();
         console.log("clicked");
         loginCall({email:email.current.value ,password: password.current.value}, dispatch );
