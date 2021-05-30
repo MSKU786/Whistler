@@ -5,6 +5,8 @@ const User = require("../models/User");
 //const homeController = require('../controllers/home_controller');
 
 //router.get('/',homeController.home);
+
+
 //Update User
 router.put("/:id", async (req, res) =>{
     console.log(req.params);
