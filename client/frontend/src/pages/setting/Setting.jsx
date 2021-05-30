@@ -4,7 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar"
 import "./setting.css"
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import { Cancel, Edit, PermMedia } from '@material-ui/icons';
+import { Cancel, Edit, PermMedia, RemoveFromQueueTwoTone } from '@material-ui/icons';
 function Setting(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user} = useContext(AuthContext)
@@ -25,24 +25,54 @@ function Setting(props) {
         e.preventDefault();
         console.log("form slcicked");
         console.log(user);
-        let newName = name.current.value;
-        let newDesc = desc.current.value;
-        let newCity = city.current.value;
-        let newFrom = from.current.value;
-        let newRelationship = relationship.current.value;
-
+        let newName = name.current.value ? name.current.value : user.username;
+        let newDesc = desc.current.value ? desc.current.value : user.desc;
+        let newCity = city.current.value ? city.current.value : user.city;;
+        let newFrom = from.current.value ? from.current.value : user.from;
+        let newRelationship = relationship.current.value ? relationship.current.value : user.relationship;;
+        let cP = user.coverPicture;
+        let pP = user.profilePicture;
         const updateUser = {
             userID : user._id,
             username: newName,
             desc: newDesc,
             city: newCity,
             from: newFrom,
-            relationship: newRelationship
+            relationship: newRelationship,
+            coverPicture: cP,
+            profielPicture: pP
         }
+        if(file1){
+            const data = new FormData();
+            const fileName = Date.now()+file1.name;
+            
+            data.append("name", fileName);
+            data.append("file",file1);
+            updateUser.coverPicture = fileName;  
+            try {
+                await axios.post("/upload", data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        if(file2){
+            const data = new FormData();
+            const fileName = Date.now()+file2.name;   
+            data.append("name", fileName);
+            data.append("file",file2);
+            updateUser.profilePicture = fileName; 
+            try {
+                await axios.post("/upload", data);
+            } catch (err) {
+                console.log(err);
+            } 
+        }
+    
         console.log(updateUser);
         try{
             const res = await axios.put("/users/"+user._id, updateUser);
             console.log(res);
+            window.location.reload();
         }catch(err){
             console.log(err);
         }
@@ -75,7 +105,7 @@ function Setting(props) {
                                     alt="Cover Phot" o
                                     className="profileCoverImg" />
                                 <label htmlFor="file1" className="shareOption">
-                                    <Edit className = "shareIcon"  />
+                                    <Edit className = "shareIcon1"  />
                                     <span className = "shareOptionText"></span>
                                     <input 
                                         style={{display:"none"}}
@@ -89,8 +119,8 @@ function Setting(props) {
                                     className="profileUserImg" 
                                 />
                                 <label htmlFor="file2" className="shareOption">
-                                    <Edit className = "shareIcon"  />
-                                    <span className = "shareOptionText">Photo or video </span>
+                                    <Edit className = "shareIcon2"  />
+                                    <span className = "shareOptionText"></span>
                                     <input 
                                         style={{display:"none"}}
                                         type= "file" id = "file2" 
@@ -127,14 +157,15 @@ function Setting(props) {
                             <div className="relationshipContainer">
                                 <input 
                                     className="profileDesc" 
-                                    placeHolder="Relationship Status" 
+                                    placeHolder="Relationship" 
                                     className="inputProfileDesc"
                                     ref= {relationship}
                                 />
                             </div>
                         </div>
-                        <button className="saveChanges" type="submit" >Save</button>
+                        <button className="saveChangesButton" type="submit" >Save</button>
                     </form>
+                    <div className="forSpace"></div>
                 </div>
             </div>
         </>

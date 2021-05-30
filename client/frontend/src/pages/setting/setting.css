@@ -9,6 +9,7 @@
     position: relative;
 }
 
+
 .profileRight{
     flex: 9;
 }
@@ -92,15 +93,17 @@
 .personalInfoContainer{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 20px;
 }
 
-.relationshipContainer,.fromContainer,.cityContainer{
+.fromContainer,.cityContainer{
     width: 200px;
 }
 
-
+.relationshipContainer{
+    width: 100px;
+}
 
 
 .shareCancelImg{
@@ -135,11 +138,41 @@
     cursor: pointer;
 }
 
-.shareIcon{
+.shareIcon1{
     font-size: 18px;
     margin-right:5px;
+    color: rgb(38, 6, 80);
+    top: 360px;
+    right: 20px;
+    position: absolute;
+    z-index: 2;
 }
 
+.shareIcon2{
+    font-size: 18px;
+    margin-right:5px;
+    color: rgb(38, 6, 80);
+    position: absolute;
+    z-index: 2;
+    right: 43%;
+    top: 380px;
+}
+
+.saveChangesButton{
+    font-size: 20px;
+    padding: 10px 20px;
+    width: 150px;
+    height: 50px;
+    align-self: center;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    background-color: #008CBA;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 42%;
+}
 .shareImgContainer{
     position: absolute;
     opacity: 0.8;
@@ -172,4 +205,11 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    
+    
+}
+
+.forSpace{
+    height: 100px;
+    width: 100%;
 }
