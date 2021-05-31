@@ -106,7 +106,7 @@
 }
 
 
-.shareCancelImg{
+.settingCancelImg{
     position: absolute;
     top:0;
     right:40px;
@@ -116,7 +116,7 @@
     color: rgb(31, 11, 207);
 }
 
-.shareCancelImg2{
+.settingCancelImg2{
     position: absolute;
     top:0;
     right:15px;
@@ -126,19 +126,19 @@
     color: rgb(184, 20, 20);
 }
 
-.shareOptions{
+.settingOptions{
     display: flex;
     margin-left: 20px;
 }
 
-.shareOption{
+.settingOption{
     display: flex;
     align-items: center;
     margin-right: 15px;
     cursor: pointer;
 }
 
-.shareIcon1{
+.settingIcon1{
     font-size: 18px;
     margin-right:5px;
     color: rgb(38, 6, 80);
@@ -148,7 +148,7 @@
     z-index: 2;
 }
 
-.shareIcon2{
+.settingIcon2{
     font-size: 18px;
     margin-right:5px;
     color: rgb(38, 6, 80);
@@ -173,7 +173,7 @@
     position: absolute;
     left: 42%;
 }
-.shareImgContainer{
+.settingImgContainer{
     position: absolute;
     opacity: 0.8;
     height: 350px;
@@ -182,7 +182,7 @@
     z-index: 3;
 }
 
-.shareImgContainer2{
+.settingImgContainer2{
     border: 2px solid white;
     position: absolute;
     top: 250px;
@@ -194,13 +194,13 @@
     z-index: 3;
 }
 
-.shareImg{
+.settingImg{
     width: 95%;
     height: 95%;
     object-fit: cover;
 }
 
-.shareImg2{
+.settingImg2{
     width: 100%;
     height: 100%;
     border-radius: 50%;

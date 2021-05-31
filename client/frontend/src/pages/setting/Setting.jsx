@@ -86,16 +86,16 @@ function Setting(props) {
                 <Sidebar/>
                 <div className="settingMainContainer">
                     {file1 && (
-                        <div className="shareImgContainer">
-                            <img className = "shareImg" src={URL.createObjectURL(file1)} alt = "No preview "/>
-                            <Cancel className = "shareCancelImg" onClick={() => setFile1(null)}/>
+                        <div className="settingImgContainer">
+                            <img className = "settingImg" src={URL.createObjectURL(file1)} alt = "No preview "/>
+                            <Cancel className = "settingCancelImg" onClick={() => setFile1(null)}/>
                         </div>
                     )}
 
                     {file2 && (
-                        <div className="shareImgContainer2">
-                            <img className = "shareImg2" src={URL.createObjectURL(file2)} alt = "No preview "/>
-                            <Cancel className = "shareCancelImg2" onClick={() => setFile2(null)}/>
+                        <div className="settingImgContainer2">
+                            <img className = "settingImg2" src={URL.createObjectURL(file2)} alt = "No preview "/>
+                            <Cancel className = "settingCancelImg2" onClick={() => setFile2(null)}/>
                         </div>
                     )}
                     <form className="settingContainer" onSubmit={handleChanges}>
@@ -104,9 +104,9 @@ function Setting(props) {
                                 <img src={user.coverPicture ? PF+user?.coverPicture : PF+"cover.jpg"} 
                                     alt="Cover Phot" o
                                     className="profileCoverImg" />
-                                <label htmlFor="file1" className="shareOption">
-                                    <Edit className = "shareIcon1"  />
-                                    <span className = "shareOptionText"></span>
+                                <label htmlFor="file1" className="settingOption">
+                                    <Edit className = "settingIcon1"  />
+                                    <span className = "settingOptionText"></span>
                                     <input 
                                         style={{display:"none"}}
                                         type= "file" id = "file1" 
@@ -118,9 +118,9 @@ function Setting(props) {
                                     alt="User Photo" 
                                     className="profileUserImg" 
                                 />
-                                <label htmlFor="file2" className="shareOption">
-                                    <Edit className = "shareIcon2"  />
-                                    <span className = "shareOptionText"></span>
+                                <label htmlFor="file2" className="settingOption">
+                                    <Edit className = "settingIcon2"  />
+                                    <span className = "settingOptionText"></span>
                                     <input 
                                         style={{display:"none"}}
                                         type= "file" id = "file2" 
