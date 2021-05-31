@@ -5,24 +5,31 @@ const router = express.Router();
 
 
 router.post("/", async  (req, res) => {
-    const check = Conversation.find((cov)=> {
-        if(cov.people.includes(req.body.senderID) && 
-            cov.people.includes(req.body.recieverID))
-            return true
-        return false;
-    })
+    console.log(req.body);
+    let check = false;
+    const allConversation = await Conversation.find({});
+    allConversation.map((cov)=>{
+        if(cov?.people.includes(req.body.senderID) && cov?.people.includes(req.body.recieverID))
+        {   
+            check = true;
+        }
+    });
+    console.log(check);
     if(check)
         res.status(406).json("alredy exist");
-    const newConversation = new Conversation({
-        people: [req.body.senderID, req.body.recieverID]
-    })
+    else{
+        
+        const newConversation = new Conversation({
+            people: [req.body.senderID, req.body.recieverID]
+        })
 
-    try{
-        const savedConversation = await newConversation.save();
-        res.status(200).json(savedConversation)
+        try{
+            const savedConversation = await newConversation.save();
+            res.status(200).json(savedConversation)
 
-    }catch(err){
-          res.status(500).json(err);
+        }catch(err){
+            res.status(500).json(err);
+        }
     }
 })
 

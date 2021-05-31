@@ -168,13 +168,13 @@ router.get("/all/User", async (req, res) =>{
 router.get("/findUsers/:name", async (req, res) =>{
     try{    
         let find = req.params.name;
-       console.log(find);
         const users = await User.find({});
        
         const friendsList = [];
         users.map((friend) => {
             if(friend.username.includes(find))
             {
+            console.log(friend);
             const {_id, username, profilePicture} = friend;
             friendsList.push( {_id, username, profilePicture} );
             }
@@ -185,5 +185,31 @@ router.get("/findUsers/:name", async (req, res) =>{
         res.status(500).json(err);
     }
 });
+
+router.get("/SearchFriends/:name/:id", async (req, res) =>{
+    try{    
+         let find = req.params.name;
+         console.log(find);
+         const users = await User.find({});
+     
+         
+         const current = await User.findById(req.params.id);
+         const friendsList = [];
+         console.log(current);
+         users.map((friend) => {
+             if(friend.username.includes(find) && current.following.includes(friend._id))
+             {
+                 console.log(friend);
+                const {_id, username, profilePicture} = friend;
+                friendsList.push( {_id, username, profilePicture} );
+             }
+         });
+         res.status(200).json(friendsList);
+    }
+    catch(err){
+        res.status(500).json(err);
+    }
+});
+
 
 module.exports = router;
