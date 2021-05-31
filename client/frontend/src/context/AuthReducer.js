@@ -4,21 +4,26 @@ const AuthReducer = (state, action) => {
             return {
                 user: null, 
                 isFetching: true,
-                error: false
+                error: false,
+            
             }
 
         case "LOGIN_FAILURE" : 
             return {
                 user: null, 
                 isFetching: false,
-                error: action.payload
+                error: action.payload,
+                
             }
 
         case "LOGIN_SUCCESS" : 
+            console.log(action.payload);
+            localStorage.setItem("user", action.payload.user);
+            localStorage.setItem("token", action.payload.token);
             return {
                 user: action.payload, 
                 isFetching: false,
-                error: false
+                error: false,
             }
         case "FOLLOW" : 
             return {
@@ -40,10 +45,10 @@ const AuthReducer = (state, action) => {
                 }
             }
         case "LOG_OUT":
-            localStorage.setItem('local',"");
+            localStorage.clear();
             return{
                 ...state,
-                user:null
+                user:null,
             }
          default: 
                 return state;

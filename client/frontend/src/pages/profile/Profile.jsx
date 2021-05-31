@@ -8,17 +8,17 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 
 
-
 function Profile(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
-    const [ user, setUser ] = useState({});
-    const username = useParams().username;
-    
+    const [ currentUser, setCurrentUser ] = useState({});
+    console.log(useParams());
+    const username = useParams().loggedInname;
+    console.log(username);
     useEffect(()=>{
         const fetchUser  = async () => {
             const res = await axios.get(`/users?username=${username}`)
-            console.log(res);
-            setUser(res.data);
+            console.log("what is this",res);
+            setCurrentUser(res.data);
         }
         fetchUser();    
     },[username]);
@@ -31,22 +31,22 @@ function Profile(props) {
             <div className="profileRight">
                 <div className="profileRightTop">
                     <div className="profileCover">
-                        <img src={user.coverPicture? PF+user.coverPicture : PF+"cover.jpg"} 
+                        <img src={currentUser.coverPicture? PF+currentUser.coverPicture : PF+"cover.jpg"} 
                             alt="Cover Photo" 
                             className="profileCoverImg" />
-                        <img src=  {user.profilePicture ? PF+user.profilePicture  : PF+"profile.jpg"} 
-                            alt="User Photo" 
+                        <img src=  {currentUser.profilePicture ? PF+currentUser.profilePicture  : PF+"profile.jpg"} 
+                            alt="currentUser Photo" 
                             className="profileUserImg" />
                     </div>
                     <div className="profileInfo">
-                        {console.log(user)}
-                        <h4 className="profileName">{user.username}</h4>
-                        <p className="profileDesc">{user.desc}</p>
+                        {console.log(currentUser)}
+                        <h4 className="profileName">{currentUser.username}</h4>
+                        <p className="profileDesc">{currentUser.desc}</p>
                     </div>
                 </div>
                 <div className="profileRightBottom">
                     <Feed username={username}/>
-                    <Rightbar user={user} />
+                    <Rightbar user={currentUser} />
                 </div>
                 
             </div>

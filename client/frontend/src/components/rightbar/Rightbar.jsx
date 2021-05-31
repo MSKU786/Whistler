@@ -67,10 +67,10 @@ function Rightbar({user}) {
                         <b>Batisata </b> and <b>2 others poeple</b> have birthday today
                     </span>
                 </div>
-                <h4 className="rightbarTitle">Online Friends</h4>
+                <h4 className="rightbarTitle">Other People</h4>
                 <ul className="rightbarFriendList">
                     {users.map((u)=> (
-                         <Online key={u.id} user={u}/>
+                         <Online key={u.id} Puser={u}/>
                     ))}
                 </ul>
             </>
@@ -90,15 +90,15 @@ function Rightbar({user}) {
                 <div className="rightbarInfo">
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">City : </span>
-                        <span className="rightbarInfoValue">{user.city || "Newyork"} </span>
+                        <span className="rightbarInfoValue">{user.city || "---"} </span>
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">From : </span>
-                        <span className="rightbarInfoValue">{user.from || "Madrid"} </span>
+                        <span className="rightbarInfoValue">{user.from || "---"} </span>
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">RelationShip: </span>
-                        <span className="rightbarInfoValue">{user.relationsip || "Single"} </span>
+                        <span className="rightbarInfoValue">{user.relationsip || "---"} </span>
                     </div>
                 </div>
                 <h4 className="rightbarTitle">User Friends</h4>

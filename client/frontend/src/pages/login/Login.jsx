@@ -6,11 +6,12 @@ import { AuthContext } from '../../context/AuthContext';
 function Login(props) {
     const email= useRef();
     const password = useRef();
-    const {user, isFetching, error, dispatch} = useContext(AuthContext)
+    const {token, user, isFetching, error, dispatch} = useContext(AuthContext);
     const handleClick = (e) => {
         e.preventDefault();
         console.log("clicked");
         loginCall({email:email.current.value ,password: password.current.value}, dispatch );
+        console.log("is this is the user");
         console.log(user);
     }
     return (

@@ -43,7 +43,7 @@ router.post('/login',  async (req, res) => {
         payload,
         process.env.jwtSecret,
         {
-            expiresIn: 31556926, // 1 year in seconds
+            expiresIn: 3155692, // 1 year in seconds
         },
         (err, token) => {
             res.status(200).json({

@@ -4,9 +4,9 @@ export const LoginStart = (userCredentials) => ({
     type: "LOGIN_START",
 })
 
-export const LoginSuceess = (user) => ({
+export const LoginSuceess = (toekn) => ({
     type: "LOGIN_SUCCESS",
-    payload: user,
+    payload: toekn,
 })
 
 export const LoginFailure = (error) => ({
@@ -14,9 +14,9 @@ export const LoginFailure = (error) => ({
     payload: error
 })
 
-export const LogOut = (user) => ({
+export const LogOut = (toekn) => ({
     type: "LOG_OUT",
-    payload: user
+    payload: toekn
 })
 
 export const Follow =(userID) => ({

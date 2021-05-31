@@ -2,16 +2,17 @@ import React from 'react';
 import "./rightbar.css"
 import {Link} from "react-router-dom"
 
-function Online({user}) {
+function Online({Puser}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
+    console.log("Profilea Page",Puser);
     return (
-        <Link to={"/profile/"+user.username} style={{textDecoration:"none"}}>
+        <Link to={"/profile/"+Puser.username} style={{textDecoration:"none"}}>
             <li className="rightbarFriend">
                 <div className="rightbarProfileImgContainer">
-                    <img src={user.profilePicture? PF+user.profilePicture : PF+"unknown.jpg"} alt="1" className="rightbarProfileImg" />
+                    <img src={Puser.profilePicture? PF+Puser.profilePicture : PF+"unknown.jpg"} alt="1" className="rightbarProfileImg" />
                     <span className="rightbarOnline"></span>
                 </div>
-                <div className="rightbarUserName">{user.username}</div>
+                <div className="rightbarUserName">{Puser.username}</div>
             </li>
         </Link>
     );

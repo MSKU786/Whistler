@@ -8,7 +8,7 @@ function Share(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const desc = useRef();
     const [file, setFile] = useState(null);
-
+    console.log("This",user.username);
     const submitHandler = async (e) => {
         e.preventDefault();
         const newPost = {

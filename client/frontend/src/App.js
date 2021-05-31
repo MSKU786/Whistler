@@ -18,7 +18,7 @@ import {
 
 
 function App() {
-  const {loggedIn} = useContext(AuthContext);
+  const loggedIn = localStorage.token ? true : false;
   
 // // Check for token to keep user logged in
 //   if (loggedIn) {
