@@ -6,7 +6,7 @@ function Online({Puser}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
     console.log("Profilea Page",Puser);
     return (
-        <Link to={"/profile/:user"+Puser.username} style={{textDecoration:"none"}}>
+        <Link to={"/profile/"+Puser.username} style={{textDecoration:"none"}}>
             <li className="rightbarFriend">
                 <div className="rightbarProfileImgContainer">
                     <img src={Puser.profilePicture? PF+Puser.profilePicture : PF+"unknown.jpg"} alt="1" className="rightbarProfileImg" />

@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
+
+
 const AuthReducer = (state, action) => {
+    
+    const {user:cUser} = useContext(AuthContext);
     switch(action.type){
         case "LOGIN_START" : 
             return {
@@ -18,32 +24,13 @@ const AuthReducer = (state, action) => {
 
         case "LOGIN_SUCCESS" : 
             console.log(action.payload);
-            localStorage.setItem("user", action.payload.user);
             localStorage.setItem("token", action.payload.token);
             return {
-                user: action.payload, 
+                user: cUser, 
                 isFetching: false,
                 error: false,
             }
-        case "FOLLOW" : 
-            return {
-                ...state,
-                user:{
-                    ...state.user,
-                    following: state.user.following.filter(
-                        following=> following !== action.payload
-                    ),
-                }
-            }
-
-        case "FOLLOW" : 
-            return {
-                ...state,
-                user:{
-                    ...state.user,
-                    following: [...state.user.following, action.payload],
-                }
-            }
+    
         case "LOG_OUT":
             localStorage.clear();
             return{

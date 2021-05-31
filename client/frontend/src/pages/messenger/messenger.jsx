@@ -1,4 +1,4 @@
-import {  Send } from '@material-ui/icons';
+import {  Search, Send } from '@material-ui/icons';
 import React, { createRef, useContext, useEffect, useRef, useState } from 'react';
 import ChatOnline from '../../components/chatOnline/ChatOnline';
 import Topbar from '../../components/top-bar/Topbar';
@@ -19,17 +19,24 @@ function Messenger(props) {
     const [messages , setMessages] = useState([]);     
     const [newMessages , setNewMessages] = useState("")
     const [arrivalMessage , setArrivalMessage] = useState(null);  
-    const [onlineUsers , setOnlineUsers ] = useState(null);    
+    const [onlineUsers , setOnlineUsers ] = useState(null);
+    const [searchResultF, setSearchResultF] = useState([]); 
+    const [selected, setSelected] = useState(false);    
     const socket = useRef();                 
     const {user} = useContext(AuthContext)
-    const search = useRef();
-    
+    const searchF = useRef();
+    const menu = useRef();
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     // const fetchUser  = async () => {
     //     const res = await axios.get(`/users?userID=${id}`)
     //     console.log(res.data);
     //     return res.data;
     //     }
     // const user =   fetchUser();    
+    const handleList = () => {
+        setSelected(true);
+    }
+
  
     useEffect(()=> {
         socket.current = io("ws://localhost:8990");
@@ -108,9 +115,8 @@ function Messenger(props) {
             try {
                 console.log("running");
                 const friendList = 
-                    await axios.get("/users/findUsers/"+
-                     search.current.value);   
-                setSearchResult(friendList.data);
+                    await axios.get(`/users/SearchFriends/${searchF.current.value}/${user._id}`);
+                setSearchResultF(friendList.data);
         
             } catch(err) {
                 console.log(err);
@@ -130,6 +136,25 @@ function Messenger(props) {
         gettingtheMessage();
       }, [currentChat]);
 
+    const handleConversation = (id) => {
+        const fetchConversation = async () => {
+            try {
+               
+                const data = JSON.stringify({
+                    senderID: user._id,
+                    recieverID: id
+                })
+                console.log("This is id",data);
+                const res =  await axios.post("/conversations", ({senderID: user._id, recieverID: id}));
+                console.log(res);    
+                window.location.reload();
+        
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        fetchConversation();
+    }
   
     return (
         <>
@@ -138,15 +163,15 @@ function Messenger(props) {
                 <div className="chatMenu">
                     <div className="chatMenuContainer">
                         <Search onClick={searchFriendHandler} className = "searchIcon" />
-                        <input ref={search} type="text" placeholder="search for friends" className="chatMenuInput" />
-                        <div ref={menu} className="search-resultsUser">
+                        <input ref={searchF} onFocus={handleList} type="text" placeholder="search for friends" className="chatMenuInput" />
+                        <div ref={menu} className="search-resultsUserM">
                         {
-                            selected &&  ( searchResult.length===0 ?
+                            selected &&  ( searchResultF.length===0 ?
                             <h3>No user found</h3> :
                             <ul className="rightbarFriendList">
                             {
-                                searchResult.map((o)=>(
-                                    <li className="rightbarFriend" id="highlight" onClick={handleConversation(o._id)}>
+                                searchResultF.map((o)=>(
+                                    <li className="rightbarFriend" id="highlight" onClick={()=> handleConversation(o._id)}>
                                         <div className="rightbarProfileImgContainer">
                                             <img src={o.profilePicture? PF+o.profilePicture : PF+"unknown.jpg"} alt="1" className="rightbarProfileImg" id="searchImg"/>
                                         </div>

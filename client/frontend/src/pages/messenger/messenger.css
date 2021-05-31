@@ -70,3 +70,15 @@
     color: gray;
     
 }
+
+.search-resultsUserM{
+    position: absolute;
+    background: #fff;
+    width: 35%;
+    box-sizing: border-box;
+    border: 1px solid #e1e1e1;
+    top: 100px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index: 10;
+  }

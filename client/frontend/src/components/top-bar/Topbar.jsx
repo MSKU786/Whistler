@@ -19,12 +19,12 @@ function Topbar(props) {
         setSelected(true);
     }
 
-    useEffect(() => {
-        document.addEventListener("mousedown", (e) => {
-            if(!menu.current.contains(e.target))
-                setSelected(false);
-        })
-    })
+    // useEffect(() => {
+    //     document.addEventListener("mousedown", (e) => {
+    //         if(!menu.current?.contains(e.target))
+    //             setSelected(false);
+    //     })
+    // })
     const searchHandler = () => {
         setSelected(true);
         const fetchPeoples = async () => {

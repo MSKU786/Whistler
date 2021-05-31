@@ -46,12 +46,12 @@ function Rightbar({user}) {
             if(followed) 
             {
                 axios.put("/users/"+user._id+"/unfollow",{userID: currentUser._id})
-                dispatch({type: "UNFOLLOW", payload:user._id})
+                
             }
             else
             {
                 axios.put("/users/"+user._id+"/follow",{userID: currentUser._id})
-                dispatch({type: "FOLLOW", payload:user._id})
+               
             }
         } catch (err) {
             console.log(err);
