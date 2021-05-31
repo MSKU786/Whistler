@@ -8,9 +8,12 @@ import Message from '../../conversation/Message';
 import axios from "axios"
 import {io} from "socket.io-client"
 import "./messenger.css"
+import { useParams } from 'react-router';
 
 
 function Messenger(props) {
+    const id = useParams().id;
+    
     const [conversations , setConversations] = useState([])
     const [currentChat , setCurrentChat] = useState(null)
     const [messages , setMessages] = useState([]);     
@@ -18,10 +21,15 @@ function Messenger(props) {
     const [arrivalMessage , setArrivalMessage] = useState(null);  
     const [onlineUsers , setOnlineUsers ] = useState(null);    
     const socket = useRef();                 
-    const {user} =  useContext(AuthContext);
-
-  
-
+    const {user} = useContext(AuthContext)
+    
+    // const fetchUser  = async () => {
+    //     const res = await axios.get(`/users?userID=${id}`)
+    //     console.log(res.data);
+    //     return res.data;
+    //     }
+    // const user =   fetchUser();    
+ 
     useEffect(()=> {
         socket.current = io("ws://localhost:8990");
         socket.current.on("getMessage", data => {
@@ -46,7 +54,7 @@ function Messenger(props) {
         socket.current.on("getUsers", (users) => {
             console.log("is this correct");
             setOnlineUsers(
-                user.following.filter(f=>users.some(u=>u.userId===f)));
+                user?.following.filter(f=>users.some(u=>u.userId===f)));
         });
     }, [user]);
 

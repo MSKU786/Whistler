@@ -19,7 +19,7 @@ import {
 
 function App() {
   const loggedIn = localStorage.token ? true : false;
-  
+
 // // Check for token to keep user logged in
 //   if (loggedIn) {
 //   // Set auth token header auth
@@ -48,8 +48,8 @@ function App() {
         <Route path="/register">
             {!loggedIn ? <Redirect to="/login"/> : <Register  />}
         </Route>
-        <Route path="/messenger">
-            {!loggedIn ? <Redirect to="/login"/> : <Messenger />}
+        <Route path="/messenger/:id">
+            {!loggedIn ? <Redirect to="/login"/> : <Messenger/>}
         </Route>
         <Route path="/profile/:loggedInname">
             {!loggedIn ? <Redirect to="/login"/> : <Profile />}     

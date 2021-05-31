@@ -164,4 +164,26 @@ router.get("/all/User", async (req, res) =>{
 });
 
 
+//search a user
+router.get("/findUsers/:name", async (req, res) =>{
+    try{    
+        let find = req.params.name;
+       console.log(find);
+        const users = await User.find({});
+       
+        const friendsList = [];
+        users.map((friend) => {
+            if(friend.username.includes(find))
+            {
+            const {_id, username, profilePicture} = friend;
+            friendsList.push( {_id, username, profilePicture} );
+            }
+        });
+        res.status(200).json(friendsList);
+    }
+    catch(err){
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;

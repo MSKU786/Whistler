@@ -20,12 +20,11 @@ export const AuthContextProvider =  ({children}) => {
     if(localStorage.token)
     {
         decode = jwt_decode(localStorage.token);
-        console.log("is this null",decode);
+        
     }
     useEffect(()=>{
         const fetchUser  = async () => {
             const res = await axios.get(`/users?userID=${decode?.id}`)
-            console.log("what",res);
             setUser(res.data);
         }
         fetchUser();    

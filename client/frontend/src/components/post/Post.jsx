@@ -46,7 +46,7 @@ function Post({post}) {
                 <div className="postTop">
                     <div className="postTopLeft">
                         <Link to = {`/profile/${user.username}`}>
-                            <img src={user.profilePicture || PF+"1.jpg"} alt="DP" className="postProfileImg" />
+                            <img src={user.profilePicture ? PF+user.profilePicture: PF+"1.jpg"} alt="DP" className="postProfileImg" />
                         </Link>
                         <span className="postUserName">{user.username}</span>
                         <span className="postDate">{format(post.createdAt)}</span>
