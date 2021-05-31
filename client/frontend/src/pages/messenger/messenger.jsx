@@ -22,6 +22,7 @@ function Messenger(props) {
     const [onlineUsers , setOnlineUsers ] = useState(null);    
     const socket = useRef();                 
     const {user} = useContext(AuthContext)
+    const search = useRef();
     
     // const fetchUser  = async () => {
     //     const res = await axios.get(`/users?userID=${id}`)
@@ -101,6 +102,22 @@ function Messenger(props) {
         }
     }
 
+    const searchFriendHandler = () => {
+        setSelected(true);
+        const fetchPeoples = async () => {
+            try {
+                console.log("running");
+                const friendList = 
+                    await axios.get("/users/findUsers/"+
+                     search.current.value);   
+                setSearchResult(friendList.data);
+        
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        fetchPeoples();
+    }
     useEffect(() => {
         const gettingtheMessage = async () => {
           try {
@@ -120,7 +137,26 @@ function Messenger(props) {
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuContainer">
-                        <input type="text" placeholder="search for friends" className="chatMenuInput" />
+                        <Search onClick={searchFriendHandler} className = "searchIcon" />
+                        <input ref={search} type="text" placeholder="search for friends" className="chatMenuInput" />
+                        <div ref={menu} className="search-resultsUser">
+                        {
+                            selected &&  ( searchResult.length===0 ?
+                            <h3>No user found</h3> :
+                            <ul className="rightbarFriendList">
+                            {
+                                searchResult.map((o)=>(
+                                    <li className="rightbarFriend" id="highlight" onClick={handleConversation(o._id)}>
+                                        <div className="rightbarProfileImgContainer">
+                                            <img src={o.profilePicture? PF+o.profilePicture : PF+"unknown.jpg"} alt="1" className="rightbarProfileImg" id="searchImg"/>
+                                        </div>
+                                        <div className="rightbarUserNameSearch">{o.username}</div>
+                                    </li>
+                                )
+                            ) }
+                            </ul>
+                        ) }
+                    </div>
                         {
                             conversations.map((c)=>(
                                 <div onClick= {()=>setCurrentChat(c)}>

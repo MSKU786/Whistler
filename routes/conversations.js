@@ -5,6 +5,14 @@ const router = express.Router();
 
 
 router.post("/", async  (req, res) => {
+    const check = Conversation.find((cov)=> {
+        if(cov.people.includes(req.body.senderID) && 
+            cov.people.includes(req.body.recieverID))
+            return true
+        return false;
+    })
+    if(check)
+        res.status(406).json("alredy exist");
     const newConversation = new Conversation({
         people: [req.body.senderID, req.body.recieverID]
     })
