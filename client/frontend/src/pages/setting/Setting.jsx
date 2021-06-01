@@ -40,9 +40,13 @@ function Setting(props) {
     },[user])
 
     const deleteHandler = (id) => {
-        const fetchConversation = async () => {
+        console.log("this working");
+        const data = {
+            userID: user._id
+          }
+        const deltePost = async () => {
             try {
-                const res =  await axios.delete("/posts/"+ id);
+                const res =  await axios.delete("/posts/"+ id, {data});
                 console.log(res);    
                 window.location.reload();
         
@@ -50,7 +54,7 @@ function Setting(props) {
                 console.log(err);
             }
         }
-        fetchConversation();
+        deltePost();
     }
   
     const handleChanges = async (e) => {
@@ -209,7 +213,7 @@ function Setting(props) {
                                     <span className="postDate">{format(post.createdAt)}</span>
                                 </div>
                                 <div className="postTopRight">
-                                    <Delete onClick={()=>deleteHandler(post._id)}/>
+                                    <Delete  className = "deleteIcon" onClick={()=>deleteHandler(post._id)}/>
                                 </div>
                             </div>
                             <div className="postCenter">
