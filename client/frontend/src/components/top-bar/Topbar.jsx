@@ -20,29 +20,26 @@ function Topbar(props) {
     }
 
     useEffect(() => {
+        console.log('happening');
         let handler = (event)=> {
-            if(!menu.current?.contains(event.target)){
+            if(!menu.current.contains(event.target)){
                 setSelected(false);
+            }
         }
         document.addEventListener("mousedown",handler);
 
         return () => {
             document.removeEventListener("mousedown", handler);
-        };
-    }
-
-    })
+        }
+    },[menu])
     const searchHandler = () => {
         setSelected(true);
         const fetchPeoples = async () => {
             try {
-                console.log("running");
+                
                 const friendList = 
                     await axios.get("/users/findUsers/"+
-                     search.current.value);   
-                  
-                console.log(friendList);
-                console.log(friendList.data);
+                     search.current.value);  
                 setSearchResult(friendList.data);
         
             } catch(err) {
@@ -56,7 +53,7 @@ function Topbar(props) {
         <div className="topbarContainer">
             
             <div className="topbarLeft">
-                <Link to="/" >
+                <Link to="/" style={{textDecoration:"none"}}>
                     <span className="logo">Whistler</span>
                 </Link>
             </div>
@@ -64,7 +61,6 @@ function Topbar(props) {
                 <div className="searchBar">
                     <Search onClick={searchHandler} className = "searchIcon" />
                     <input ref={search} onFocus={handleList} placeholder="Search Here......." className="searchInput" />
-                    {console.log(searchResult[0])}
                     <div ref={menu} className="search-resultsUser">
                         {
                             selected &&  ( searchResult.length===0 ?
@@ -95,11 +91,11 @@ function Topbar(props) {
                 </div>
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
-                        <Person />
+                        <Person  />
                         <span className="topbarIconBatch">1</span>
                     </div>
                     <div className="topbarIconItem">
-                        <Link to = {"/messenger/"+user._id}>
+                        <Link to = {"/messenger/"+user._id} style={{color:"white"}}>
                             <Chat />
                         </Link>
                         

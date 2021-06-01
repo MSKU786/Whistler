@@ -8,12 +8,13 @@ import { Add, Remove } from '@material-ui/icons';
 
 
 function Rightbar({user}) {
+
     const[users, setUsers] = useState([])
     const{user: currentUser, dispatch} = useContext(AuthContext);
     const[friends, setFriends] = useState([]);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
     const [followed, setFollowed] = useState(currentUser.following?.includes(user?.id));
-
+    console.log(currentUser);
     // useEffect(()=>{
     //     if(currentUser.following)
     //         setFollowed(currentUser.following.includes(user?.id))

@@ -1,7 +1,7 @@
 .topbarContainer{
     height: 50px;
     width: 100%;
-    background-color: #1877f2;
+    background-color: #17252A;
     display: flex;
     align-items: center;
     position:   sticky;
@@ -90,8 +90,9 @@
 }
 
 .topbarImg{
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
     object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
@@ -103,7 +104,7 @@
 }
 
 .dropbtn {
-    background-color: #1877f2;
+    background-color: #17252A;
     color: white;
     padding: 10px;
     font-size: 16px;
@@ -120,7 +121,7 @@
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: darkblue;
+    background-color: #17252A;
 
     right: 0;
     min-width: 160px;
@@ -138,21 +139,22 @@
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: rgb(95, 240, 27);}
+  .dropdown-content a:hover {   background-color: #DEF2F1;
+    color: #17252A}
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
   
   .search-resultsUser{
     position: absolute;
-    background: #fff;
+    background: none;
     width: 35%;
+    background-color: #DEF2F1;
     box-sizing: border-box;
-    border: 1px solid #e1e1e1;
     top: 42px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    align-self: center;
     z-index: 10;
+    padding-left: 20px;
   }
 
   .rightbarUserNameSearch{
@@ -163,7 +165,8 @@
   
   #highlight:hover{
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-    background-color: rgb(233, 227, 216);
+    background-color: #DEF2F1;
+    color: #17252A
 
   }
 

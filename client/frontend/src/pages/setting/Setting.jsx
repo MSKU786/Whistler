@@ -192,7 +192,7 @@ function Setting(props) {
                                 <input 
                                     className="profileDesc" 
                                     placeHolder="Relationship" 
-                                    className="inputProfileDesc"
+                                    className="inputProfileName"
                                     ref= {relationship}
                                 />
                             </div>

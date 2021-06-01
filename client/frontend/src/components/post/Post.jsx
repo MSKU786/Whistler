@@ -69,7 +69,7 @@ function Post({post}) {
                         <button className="likeIcon" onClick={likeHandler}>
                             <ThumbUpAlt />
                         </button>
-                        <button className="likeIcon">
+                        <button className="likeIcon" onClick={likeHandler}>
                             <FavoriteBorder />
                         </button>
                         <span className="postLikeCounter">

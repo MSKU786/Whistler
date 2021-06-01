@@ -1,6 +1,6 @@
 .profile{
     display: flex;
-    
+    background-color: #DEF2F1;
 }
 
 .profileRight{
@@ -12,14 +12,14 @@
 }
 
 .profileCover{
-
+    background-color: #DEF2F1;
     width: 100%;
     height: 300px;
     object-fit: cover;
     position: relative;
 }
 .profileCoverImg{
-
+    background-color: #DEF2F1;
     width: 100%;
     height: 250px;
     object-fit: cover;
