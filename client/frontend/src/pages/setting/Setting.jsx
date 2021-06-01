@@ -39,6 +39,20 @@ function Setting(props) {
         }
     },[user])
 
+    const deleteHandler = (id) => {
+        const fetchConversation = async () => {
+            try {
+                const res =  await axios.delete("/posts/"+ id);
+                console.log(res);    
+                window.location.reload();
+        
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        fetchConversation();
+    }
+  
     const handleChanges = async (e) => {
         e.preventDefault();
    
