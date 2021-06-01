@@ -1,10 +1,14 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Topbar from '../../components/top-bar/Topbar';
 import Sidebar from "../../components/sidebar/Sidebar"
 import "./setting.css"
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import { Cancel, Edit, PermMedia, RemoveFromQueueTwoTone } from '@material-ui/icons';
+import {Link} from "react-router-dom"
+import { Cancel, Delete, Edit, FavoriteBorder, MoreVert, PermMedia, RemoveFromQueueTwoTone, ThumbUpAlt } from '@material-ui/icons';
+import { format } from 'timeago.js';
+
+
 function Setting(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user} = useContext(AuthContext)
@@ -15,16 +19,29 @@ function Setting(props) {
     const relationship = useRef();
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
-
+    const [userPosts, setUserPosts] = useState([]);
 
     // const [city, setCity] = useState(user.city);
     // const [from , setFrom] = useState(user.city);
     // const [relationship, setRelationship] = useState(user.relationship);
+    useEffect(()=> {
+        try{
+            console.log("is this running");
+            const postArray = async () => {
+                const res = await axios.get('/posts/profile/'+user.username); 
+                setUserPosts(res.data);
+                
+            }
+            postArray();
+        }catch(err)
+        {
+            console.log(err);
+        }
+    },[user])
 
     const handleChanges = async (e) => {
         e.preventDefault();
-        console.log("form slcicked");
-        console.log(user);
+   
         let newName = name.current.value ? name.current.value : user.username;
         let newDesc = desc.current.value ? desc.current.value : user.desc;
         let newCity = city.current.value ? city.current.value : user.city;;
@@ -71,7 +88,6 @@ function Setting(props) {
         console.log(updateUser);
         try{
             const res = await axios.put("/users/"+user._id, updateUser);
-            console.log(res);
             window.location.reload();
         }catch(err){
             console.log(err);
@@ -165,8 +181,38 @@ function Setting(props) {
                         </div>
                         <button className="saveChangesButton" type="submit" >Save</button>
                     </form>
-                    <div className="forSpace"></div>
+                    <h2 className = "titlePost"> Your Post </h2>
+                <div className = "postSetting">
+                     
+                        { userPosts.map((post) => (
+                            <div className="postWrapper" id="effects"> 
+                              <div className="postTop">
+                                <div className="postTopLeft">
+                                    <Link to = {`/profile/${user.username}`}>
+                                        <img src={user.profilePicture ? PF+user.profilePicture: PF+"1.jpg"} alt="DP" className="postProfileImg" />
+                                    </Link>
+                                    <span className="postUserName">{user.username}</span>
+                                    <span className="postDate">{format(post.createdAt)}</span>
+                                </div>
+                                <div className="postTopRight">
+                                    <Delete onClick={()=>deleteHandler(post._id)}/>
+                                </div>
+                            </div>
+                            <div className="postCenter">
+                                <span className="postText">{post?.desc}</span>
+                                <img 
+                                    src={PF+post.images || PF+"1.jpg" } 
+
+                                    alt="post1" 
+                                    className="postImg" 
+                                />
+                            </div>   
+                        </div> 
+                       ))}
+                   
+                    </div>
                 </div>
+         
             </div>
         </>
     );
