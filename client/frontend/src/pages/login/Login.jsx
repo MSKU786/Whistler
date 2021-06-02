@@ -14,7 +14,7 @@ function Login(props) {
         loginCall({email:email.current.value ,password: password.current.value}, dispatch );
         console.log("Log in complete now refrest");
         <Redirect to="/" />
-        window.location.reload();
+        
     }
     return (
         <div className = "login">

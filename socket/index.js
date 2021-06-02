@@ -1,4 +1,4 @@
-const io = require('socket.io')(8090, {
+const io = require('socket.io')(9999, {
     cors:{
         origin: "http://localhost:3000"
     }
@@ -45,4 +45,3 @@ io.on("connection", (socket) => {
         io.emit("getUsers", users);
     })
 })
-

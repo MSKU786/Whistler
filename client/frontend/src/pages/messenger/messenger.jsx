@@ -34,7 +34,7 @@ function Messenger(props) {
 
  
     useEffect(()=> {
-        socket.current = io("ws://localhost:8990");
+        socket.current = io("http://localhost:8800/api/");
         socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
