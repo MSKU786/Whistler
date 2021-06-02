@@ -1,4 +1,4 @@
-const io = require('socket.io')(8990, {
+const io = require('socket.io')(8090, {
     cors:{
         origin: "http://localhost:3000"
     }

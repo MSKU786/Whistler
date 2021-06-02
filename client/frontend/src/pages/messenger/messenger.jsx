@@ -25,7 +25,7 @@ function Messenger(props) {
     const socket = useRef();                 
     const {user} = useContext(AuthContext)
     const searchF = useRef();
-    const menu = useRef();
+    const menuF = useRef();
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const handleList = () => {
@@ -157,7 +157,20 @@ function Messenger(props) {
         }
         fetchConversation();
     }
-  
+    
+    useEffect(() => {
+        console.log('happening');
+        let handler = (event)=> {
+            if(!menuF.current.contains(event.target)){
+                setSelected(false);
+            }
+        }
+        document.addEventListener("mousedown",handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        }
+    },[menuF])
     return (
         <>
             <Topbar />
@@ -166,7 +179,7 @@ function Messenger(props) {
                     <div className="chatMenuContainer">
                         <Search onClick={searchFriendHandler} className = "searchIcon" />
                         <input ref={searchF} onFocus={handleList} type="text" placeholder="search for friends" className="chatMenuInput" />
-                        <div ref={menu} className="search-resultsUserM">
+                        <div ref={menuF} className="search-resultsUserM">
                         {
                             selected &&  ( searchResultF.length===0 ?
                             <h3>No user found</h3> :

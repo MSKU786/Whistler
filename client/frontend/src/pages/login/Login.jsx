@@ -3,16 +3,18 @@ import "./login.css"
 import {loginCall} from "../../apiCalls"
 import {CircularProgress} from "@material-ui/core"
 import { AuthContext } from '../../context/AuthContext';
+import { Redirect, useHistory } from 'react-router';
 function Login(props) {
+    let history = useHistory()
     const email= useRef();
     const password = useRef();
     const {token, user, isFetching, error, dispatch} = useContext(AuthContext);
     const handleClick = (e) => {
         e.preventDefault();
-        console.log("clicked");
         loginCall({email:email.current.value ,password: password.current.value}, dispatch );
-        console.log("is this is the user");
-        console.log(user);
+        console.log("Log in complete now refrest");
+        <Redirect to="/" />
+        window.location.reload();
     }
     return (
         <div className = "login">
