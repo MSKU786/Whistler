@@ -1,13 +1,11 @@
-import jwt_decode from "jwt-decode";
+
 import Home from "./pages/home/Home"
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Profile from "./pages/profile/Profile";
 import Messenger from "./pages/messenger/Messenger";
 import Setting from "./pages/setting/Setting"
-import { useContext, useState } from "react";
-import { AuthContext } from "./context/AuthContext";
-import setAuthToken from "./utils/setAuthToken";
+
 import {
   BrowserRouter as Router,
   Switch,

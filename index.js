@@ -46,6 +46,11 @@ app.use(cors());
 //app.use(express.bodyParser());
 
 
+//Serve static assests if in production
+if(process.env.NODE_ENV === 'production')
+{
+    app.use(express.static('client/build'))
+}
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public/images");
@@ -70,8 +75,11 @@ app.use('/api/posts', postRoute);
 app.use('/api/conversations', conversationRoute);
 app.use('/api/messages', messageRoute);
 
+
+
+
 const server = http.createServer(app);
-const io = socket(server, {
+const io = socketio(9999, {
     cors:{
         origin: "*"
     }
