@@ -8,12 +8,12 @@ import Message from '../../conversation/Message';
 import axios from "axios"
 import {io} from "socket.io-client"
 import "./messenger.css"
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 
 function Messenger(props) {
     const id = useParams().id;
-    
+    const history = useHistory();
     const [conversations , setConversations] = useState([])
     const [currentChat , setCurrentChat] = useState(null)
     const [messages , setMessages] = useState([]);     
@@ -27,12 +27,7 @@ function Messenger(props) {
     const searchF = useRef();
     const menu = useRef();
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    // const fetchUser  = async () => {
-    //     const res = await axios.get(`/users?userID=${id}`)
-    //     console.log(res.data);
-    //     return res.data;
-    //     }
-    // const user =   fetchUser();    
+
     const handleList = () => {
         setSelected(true);
     }
@@ -61,8 +56,15 @@ function Messenger(props) {
         socket.current.emit("addUser", user._id);
         socket.current.on("getUsers", (users) => {
             console.log("is this correct");
+            if(user ) 
+            {
             setOnlineUsers(
-                user?.following.filter(f=>users.some(u=>u.userId===f)));
+                user.following?.filter(f=>users.some(u=>u?.userId===f)));
+            }
+            else
+            {
+                
+            }
         });
     }, [user]);
 
