@@ -1,9 +1,10 @@
 import React from 'react';
 import "./conversation.css"
 import {format} from "timeago.js" 
-
+import API from '../utils/apiurl';
+import PF from '../utils/images'
 function Message({message, own }) {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
+ 
     return (
         <div className={own ? "message own" : "message"} > 
             <div className="messageTop">

@@ -7,11 +7,10 @@ import axios from 'axios';
 import {Link} from "react-router-dom"
 import { Cancel, Delete, Edit, FavoriteBorder, MoreVert, PermMedia, RemoveFromQueueTwoTone, ThumbUpAlt } from '@material-ui/icons';
 import { format } from 'timeago.js';
-
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 
 function Setting(props) {
-    const PF = "https://backendwhistler.herokuapp.com/images/"
-    const API = "https://backendwhistler.herokuapp.com/api";
     const {user} = useContext(AuthContext)
     const name = useRef();
     const desc = useRef();

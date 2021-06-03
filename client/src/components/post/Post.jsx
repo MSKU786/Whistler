@@ -6,13 +6,14 @@ import { format } from "timeago.js"
 import axios from 'axios';
 import {Link} from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
-
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 function Post({post}) {
-    const API = "https://backendwhistler.herokuapp.com/api"
+ 
     const [ like , setLike] = useState(post.likes.length);
     const [ isliked, setIsliked ] = useState(false);
     const [ user, setUser ] = useState({});
-    const PF = "https://backendwhistler.herokuapp.com/images/";
+
     const {user: currentUser}  = useContext(AuthContext);
 
     useEffect(() => {

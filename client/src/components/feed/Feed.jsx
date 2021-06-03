@@ -5,9 +5,10 @@ import "./feed.css"
 import axios from "axios";
 import {useState} from "react";
 import { AuthContext } from '../../context/AuthContext';
-
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 function Feed({username}) {
-    const API = "https://backendwhistler.herokuapp.com/api"
+
     const [posts, setPosts] = useState([]);
     const {user} = useContext(AuthContext);
     useEffect(()=>{

@@ -5,15 +5,15 @@ import {Link} from "react-router-dom"
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { Add, Remove } from '@material-ui/icons';
-
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 
 function Rightbar({user}) {
 
     const[users, setUsers] = useState([])
     const{user: currentUser, dispatch} = useContext(AuthContext);
     const[friends, setFriends] = useState([]);
-    const PF = "https://backendwhistler.herokuapp.com/images/";
-    const API = "https://backendwhistler.herokuapp.com/api";
+
     const [followed, setFollowed] = useState(currentUser.following?.includes(user?.id));
     console.log(currentUser);
     // useEffect(()=>{

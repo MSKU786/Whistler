@@ -3,11 +3,13 @@ import {Search, Person, Chat, Notifications, Settings, ArrowDropDownIcon, ArrowD
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 import axios from "axios";
 function Topbar(props) {
-    const API = "https://backendwhistler.herokuapp.com/api"
+
     const {user} = useContext(AuthContext);
-    const PF = "https://backendwhistler.herokuapp.com/images/";
+
     const search = useRef();
     const [searchResult, setSearchResult] = useState([]); 
     const [selected, setSelected] = useState(false);

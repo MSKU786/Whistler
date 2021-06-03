@@ -3,10 +3,11 @@ import axios from 'axios';
 import React, { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import "./share.css"
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 function Share(props) {
     const {user} = useContext(AuthContext);
-    const PF = "https://backendwhistler.herokuapp.com/images/";
-    const API = "https://backendwhistler.herokuapp.com/api";
+
     const desc = useRef();
     const [file, setFile] = useState(null);
     console.log("This",user.username);

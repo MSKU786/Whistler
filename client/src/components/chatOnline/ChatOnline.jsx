@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import "./chatOnline.css"
 import axios from "axios";
-
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 function ChatOnline({onlineUsers, currentId, setCurrentChat}) {
     const [friends, setFriends] = useState([]);
     const [onlineFriends, setOnlineFriends] = useState([]);
-    const PF = "https://backendwhistler.herokuapp.com/images/";
-    const API = "https://backendwhistler.herokuapp.com/api"
+
     useEffect(() => {
         const getFriends = async () => {
             const res = await axios.get(API+"/users/friends/"+currentId);

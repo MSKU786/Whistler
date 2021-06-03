@@ -6,11 +6,12 @@ import Rightbar from '../../components/rightbar/Rightbar';
 import Feed from '../../components/feed/Feed';
 import axios from 'axios';
 import { useParams } from 'react-router';
-
+import API from '../../utils/apiurl';
+import PF from '../../utils/images'
 
 function Profile(props) {
-    const PF = "https://backendwhistler.herokuapp.com/images/"
-    const API = "https://backendwhistler.herokuapp.com/api";
+    //const PF = "https://backendwhistler.herokuapp.com/images/"
+    //const API = "https://backendwhistler.herokuapp.com/api";
     const [ currentUser, setCurrentUser ] = useState({});
     console.log(useParams());
     const username = useParams().loggedInname;
