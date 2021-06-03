@@ -3,8 +3,7 @@ import "./rightbar.css"
 import {Link} from "react-router-dom"
 
 function Online({Puser}) {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER
-    console.log("Profilea Page",Puser);
+    const PF = "https://backendwhistler.herokuapp.com/images/";
     return (
         <Link to={"/profile/"+Puser.username} style={{textDecoration:"none"}}>
             <li className="rightbarFriend">

@@ -5,12 +5,11 @@ import axios from "axios";
 function ChatOnline({onlineUsers, currentId, setCurrentChat}) {
     const [friends, setFriends] = useState([]);
     const [onlineFriends, setOnlineFriends] = useState([]);
-
+    const PF = "https://backendwhistler.herokuapp.com/images/";
+    const API = "https://backendwhistler.herokuapp.com/api"
     useEffect(() => {
         const getFriends = async () => {
-            const res = await axios.get("/users/friends/"+currentId);
-            console.log("these are friends");
-            console.log(res.data);
+            const res = await axios.get(API+"/users/friends/"+currentId);
             setFriends(res.data);
         }
         getFriends();
@@ -22,14 +21,14 @@ function ChatOnline({onlineUsers, currentId, setCurrentChat}) {
 
     const handleClick = async (user) => {
         try{
-            const res = await axios.get(`/conversation/find/${currentId}/${user._id}`);
+            const res = await axios.get(`${API}/conversation/find/${currentId}/${user._id}`);
             setCurrentChat(res.data);
         }catch(err){
             console.log(err);
         }
     }
 
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
+    
     return (
         <div className="chatOnline">
             {onlineFriends.map(of => (

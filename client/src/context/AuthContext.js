@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import { decode } from "jsonwebtoken";
+
 import { createContext, useEffect, useReducer, useState } from "react"
 
 import AuthReducer from "./AuthReducer"
@@ -24,7 +24,7 @@ export const AuthContextProvider =  ({children}) => {
     }
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`/users?userID=${decode?.id}`)
+            const res = await axios.get(`https://backendwhistler.herokuapp.com/api/users?userID=${decode?.id}`)
             setUser(res.data);
         }
         fetchUser();    

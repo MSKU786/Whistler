@@ -7,14 +7,15 @@ import {useState} from "react";
 import { AuthContext } from '../../context/AuthContext';
 
 function Feed({username}) {
+    const API = "https://backendwhistler.herokuapp.com/api"
     const [posts, setPosts] = useState([]);
     const {user} = useContext(AuthContext);
     useEffect(()=>{
         const fetchPosts  = async () => {
             console.log(username)
             const res = username 
-                ? await axios.get("/posts/profile/"+username)
-                : await axios.get("/posts/timeline/"+user._id)
+                ? await axios.get(API+"/posts/profile/"+username)
+                : await axios.get(API+"/posts/timeline/"+user._id)
             console.log(res);
             setPosts(
                 res.data.sort((p1, p2) => {

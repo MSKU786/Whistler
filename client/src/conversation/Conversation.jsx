@@ -4,12 +4,13 @@ import { AuthContext } from '../context/AuthContext';
 import "./conversation.css" 
 function Conversation({conversation, currentUser }) {
     const [user, setUser] = useState(null);
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
+    const PF = "https://backendwhistler.herokuapp.com/images/"
+    const API = "https://backendwhistler.herokuapp.com/api";
     useEffect(() => {
         const friendId = conversation.people.find(m=> m!==currentUser._id)
         const getUser = async () => {
             try{
-                const res = await axios("/users?userID="+friendId); 
+                const res = await axios(API+"/users?userID="+friendId); 
                 setUser(res.data);
             }catch(err)
             {

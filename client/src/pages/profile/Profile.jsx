@@ -9,14 +9,15 @@ import { useParams } from 'react-router';
 
 
 function Profile(props) {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
+    const PF = "https://backendwhistler.herokuapp.com/images/"
+    const API = "https://backendwhistler.herokuapp.com/api";
     const [ currentUser, setCurrentUser ] = useState({});
     console.log(useParams());
     const username = useParams().loggedInname;
     console.log(username);
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`/users?username=${username}`)
+            const res = await axios.get(`${API}/users?username=${username}`)
             console.log("what is this",res);
             setCurrentUser(res.data);
         }

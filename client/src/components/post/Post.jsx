@@ -8,10 +8,11 @@ import {Link} from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
 
 function Post({post}) {
+    const API = "https://backendwhistler.herokuapp.com/api"
     const [ like , setLike] = useState(post.likes.length);
     const [ isliked, setIsliked ] = useState(false);
     const [ user, setUser ] = useState({});
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PF = "https://backendwhistler.herokuapp.com/images/";
     const {user: currentUser}  = useContext(AuthContext);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ function Post({post}) {
     
     useEffect(()=>{
         const fetchUser  = async () => {
-            const res = await axios.get(`/users?userID=${post.userID}`);
+            const res = await axios.get(`${API}/users?userID=${post.userID}`);
             console.log(res);
             setUser(res.data);
         }
@@ -33,7 +34,7 @@ function Post({post}) {
         // setLike(isliked ? like-1 : like+1)
         // setIsliked(!isliked ? true : false )
         try {
-            const likes = axios.put("/posts/like/"+post._id,{userID: currentUser._id})
+            const likes = axios.put(API+"/posts/like/"+post._id,{userID: currentUser._id})
             setLike(isliked ? like-1 : like+1)
             setIsliked(!isliked );
         } catch (err) {

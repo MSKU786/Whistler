@@ -5,8 +5,9 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 function Topbar(props) {
+    const API = "https://backendwhistler.herokuapp.com/api"
     const {user} = useContext(AuthContext);
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PF = "https://backendwhistler.herokuapp.com/images/";
     const search = useRef();
     const [searchResult, setSearchResult] = useState([]); 
     const [selected, setSelected] = useState(false);
@@ -20,7 +21,6 @@ function Topbar(props) {
     }
 
     useEffect(() => {
-        console.log('happening');
         let handler = (event)=> {
             if(!menu.current.contains(event.target)){
                 setSelected(false);
@@ -38,7 +38,7 @@ function Topbar(props) {
             try {
                 
                 const friendList = 
-                    await axios.get("/users/findUsers/"+
+                    await axios.get(API+"/users/findUsers/"+
                      search.current.value);  
                 setSearchResult(friendList.data);
         

@@ -26,8 +26,8 @@ function Messenger(props) {
     const {user} = useContext(AuthContext)
     const searchF = useRef();
     const menuF = useRef();
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
+    const PF = "https://backendwhistler.herokuapp.com/images/";
+    const API = "https://backendwhistler.herokuapp.com/api";
     const handleList = () => {
         setSelected(true);
     }
@@ -72,7 +72,7 @@ function Messenger(props) {
     useEffect(() => {
         const getConversation = async () => {
             try{
-                const res = await axios.get("/conversations/"+user._id)
+                const res = await axios.get(API+"/conversations/"+user._id)
                 setConversations(res.data);
             }
             catch(err){
@@ -103,7 +103,7 @@ function Messenger(props) {
             text: newMessages,
         })
         try {
-            const res = await axios.post("/messages", message );
+            const res = await axios.post(API+"/messages", message );
             setMessages([...messages, res.data])
             setNewMessages("");
         } catch (err) {
@@ -117,7 +117,7 @@ function Messenger(props) {
             try {
                 console.log("running");
                 const friendList = 
-                    await axios.get(`/users/SearchFriends/${searchF.current.value}/${user._id}`);
+                    await axios.get(API+`/users/SearchFriends/${searchF.current.value}/${user._id}`);
                 setSearchResultF(friendList.data);
         
             } catch(err) {
@@ -129,7 +129,7 @@ function Messenger(props) {
     useEffect(() => {
         const gettingtheMessage = async () => {
           try {
-            const res = await axios.get("/messages/" + currentChat?._id);
+            const res = await axios.get(API+"/messages/" + currentChat?._id);
             setMessages(res.data);
           } catch (err) {
             console.log(err);
@@ -147,7 +147,7 @@ function Messenger(props) {
                     recieverID: id
                 })
                 console.log("This is id",data);
-                const res =  await axios.post("/conversations", ({senderID: user._id, recieverID: id}));
+                const res =  await axios.post(API+"/conversations", ({senderID: user._id, recieverID: id}));
                 console.log(res);    
                 window.location.reload();
         

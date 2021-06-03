@@ -8,6 +8,7 @@ function Register(props) {
     const password = useRef();
     const confirmPassword = useRef();
     const history = useHistory();
+    const API = "https://backendwhistler.herokuapp.com/api"
     //const {user, isFetching, error, dispatch} = useContext(AuthContext)
     
     const handleClick = async (e) => {
@@ -23,7 +24,7 @@ function Register(props) {
                 password: password.current.value
             }
             try {
-                await axios.post("/auth/register", user);
+                await axios.post(API+"/auth/register", user);
                 history.push("/login");
             } catch (err) {
                 console.log(err);

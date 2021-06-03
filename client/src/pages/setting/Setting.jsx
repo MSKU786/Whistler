@@ -10,7 +10,8 @@ import { format } from 'timeago.js';
 
 
 function Setting(props) {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PF = "https://backendwhistler.herokuapp.com/images/"
+    const API = "https://backendwhistler.herokuapp.com/api";
     const {user} = useContext(AuthContext)
     const name = useRef();
     const desc = useRef();
@@ -46,7 +47,7 @@ function Setting(props) {
           }
         const deltePost = async () => {
             try {
-                const res =  await axios.delete("/posts/"+ id, {data});
+                const res =  await axios.delete(API+"/posts/"+ id, {data});
                 console.log(res);    
                 window.location.reload();
         
@@ -85,7 +86,7 @@ function Setting(props) {
             data.append("file",file1);
             updateUser.coverPicture = fileName;  
             try {
-                await axios.post("/upload", data);
+                await axios.post(API+"/upload", data);
             } catch (err) {
                 console.log(err);
             }
@@ -97,7 +98,7 @@ function Setting(props) {
             data.append("file",file2);
             updateUser.profilePicture = fileName; 
             try {
-                await axios.post("/upload", data);
+                await axios.post(API+"/upload", data);
             } catch (err) {
                 console.log(err);
             } 
@@ -105,7 +106,7 @@ function Setting(props) {
     
         console.log(updateUser);
         try{
-            const res = await axios.put("/users/"+user._id, updateUser);
+            const res = await axios.put(API+"/users/"+user._id, updateUser);
             window.location.reload();
         }catch(err){
             console.log(err);

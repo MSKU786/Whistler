@@ -12,7 +12,8 @@ function Rightbar({user}) {
     const[users, setUsers] = useState([])
     const{user: currentUser, dispatch} = useContext(AuthContext);
     const[friends, setFriends] = useState([]);
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER; 
+    const PF = "https://backendwhistler.herokuapp.com/images/";
+    const API = "https://backendwhistler.herokuapp.com/api";
     const [followed, setFollowed] = useState(currentUser.following?.includes(user?.id));
     console.log(currentUser);
     // useEffect(()=>{
@@ -23,7 +24,7 @@ function Rightbar({user}) {
     //For users
     useEffect(()=> {
         const fetchUsers = async () => {
-            const res = await axios.get("/users/all/User");
+            const res = await axios.get(API+"/users/all/User");
             setUsers(res.data);
         }
         fetchUsers();
@@ -33,7 +34,7 @@ function Rightbar({user}) {
     useEffect(()=>{
         const fetchFriends = async () => {
             try {
-                const friendList = await axios.get("/users/friends/"+currentUser._id);
+                const friendList = await axios.get(API+"/users/friends/"+currentUser._id);
                 setFriends(friendList.data);
             } catch (err) {
                 console.log(err );
@@ -46,12 +47,12 @@ function Rightbar({user}) {
         try {
             if(followed) 
             {
-                axios.put("/users/"+user._id+"/unfollow",{userID: currentUser._id})
+                axios.put(API+"/users/"+user._id+"/unfollow",{userID: currentUser._id})
                 
             }
             else
             {
-                axios.put("/users/"+user._id+"/follow",{userID: currentUser._id})
+                axios.put(API+"/users/"+user._id+"/follow",{userID: currentUser._id})
                
             }
         } catch (err) {

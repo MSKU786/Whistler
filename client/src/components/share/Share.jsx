@@ -5,7 +5,8 @@ import { AuthContext } from '../../context/AuthContext';
 import "./share.css"
 function Share(props) {
     const {user} = useContext(AuthContext);
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PF = "https://backendwhistler.herokuapp.com/images/";
+    const API = "https://backendwhistler.herokuapp.com/api";
     const desc = useRef();
     const [file, setFile] = useState(null);
     console.log("This",user.username);
@@ -23,13 +24,13 @@ function Share(props) {
             data.append("file",file);
             newPost.images = fileName;  
             try {
-                await axios.post("/upload", data);
+                await axios.post(API+"/upload", data);
             } catch (err) {
                 console.log(err);
             }
         }
         try {
-            await axios.post("/posts", newPost).then(console.log("done"))
+            await axios.post(API+"/posts", newPost);
            window.location.reload();
         } catch (err) {
             console.log(err);
